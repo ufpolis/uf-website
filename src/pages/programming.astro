@@ -1,0 +1,180 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import polisPlaceholder from '../assets/polis_placeholder.jpg';
+
+// To add or remove events, edit src/data/events.json — not this file.
+import eventsData from '../data/events.json';
+
+// Compact ISO format for Google Calendar: 20260604T180000
+function fmtGCal(iso: string) {
+  return iso.replace(/[-:]/g, '').split('.')[0];
+}
+
+const events = (eventsData as any[])
+  .filter((e) => !e._instructions)
+  .map((e) => {
+    if (!e.startISO) return { ...e, gcalUrl: null };
+    const params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: e.name,
+      dates: `${fmtGCal(e.startISO)}/${fmtGCal(e.endISO)}`,
+      details: e.description,
+      location: e.location,
+    });
+    return {
+      ...e,
+      gcalUrl: `https://calendar.google.com/calendar/render?${params}`,
+    };
+  });
+---
+
+<Layout
+  title="Programming — POLIS UF"
+  description="Upcoming events and professional development programming from POLIS UF at the University of Florida."
+>
+  <main id="main-content">
+
+    <!-- Page header -->
+    <section class="bg-dark-blue py-20 md:py-28 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="font-heading text-gold text-sm uppercase tracking-widest mb-4">Events and Development</p>
+        <h1 class="font-heading text-white text-5xl md:text-6xl leading-tight mb-6">
+          Programming
+        </h1>
+        <p class="font-heading text-white/80 text-xl max-w-2xl mx-auto leading-relaxed">
+          POLIS UF is currently planning its inaugural semester of programming. Events below are
+          placeholders. Check back soon for confirmed dates, locations, and details.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- Event cards -->
+    <section class="bg-white py-20 md:py-28 px-6">
+      <div class="max-w-6xl mx-auto">
+
+        <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center mb-14 fade-up">
+          Upcoming Events
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {events.map((event: any, i: number) => (
+            <article
+              class="fade-up group bg-white border border-gray rounded-sm overflow-hidden
+                     hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col"
+              style={`transition-delay: ${i * 100}ms`}
+            >
+              <!-- Event image — scales slightly on hover -->
+              <div class="overflow-hidden h-48 bg-gray/20 shrink-0">
+                <Image
+                  src={polisPlaceholder}
+                  alt="Placeholder event photo — to be replaced"
+                  width={480}
+                  height={320}
+                  class="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Event details — grows to fill card height -->
+              <div class="border-l-4 border-gold p-6 flex flex-col flex-1">
+                <h3 class="font-heading text-dark-blue text-xl mb-2 leading-snug">
+                  {event.name}
+                </h3>
+                <p class="font-heading text-dark-blue/70 text-sm leading-relaxed mb-4">
+                  {event.description}
+                </p>
+                <div class="flex flex-col gap-1 mb-5">
+                  <p class="font-heading text-dark-blue/50 text-xs uppercase tracking-wide">
+                    {event.date}
+                  </p>
+                  <p class="font-heading text-dark-blue/50 text-xs uppercase tracking-wide">
+                    {event.location}
+                  </p>
+                </div>
+
+                <!-- Calendar buttons — only shown when a date is set in events.json -->
+                {event.gcalUrl && (
+                  <div class="flex flex-wrap gap-2 mt-auto">
+
+                    <!-- Google Calendar button -->
+                    <a
+                      href={event.gcalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-2 border border-gray/60 text-dark-blue font-heading text-xs px-3 py-2 rounded-sm hover:border-gold hover:shadow-sm transition-all duration-200"
+                      aria-label={`Add ${event.name} to Google Calendar (opens in new tab)`}
+                    >
+                      <!-- Google G logo (inline SVG — no external request) -->
+                      <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                      </svg>
+                      Google Calendar
+                      <span class="sr-only">(opens in new tab)</span>
+                    </a>
+
+                    <!-- Other Calendar (.ics download) -->
+                    <a
+                      href={`/calendar/${event.slug}.ics`}
+                      download
+                      class="inline-flex items-center gap-2 border border-gray/60 text-dark-blue font-heading text-xs px-3 py-2 rounded-sm hover:border-gold hover:shadow-sm transition-all duration-200"
+                      aria-label={`Download ${event.name} as a calendar file for Apple Calendar, Outlook, or other apps`}
+                    >
+                      <!-- Calendar icon -->
+                      <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                      </svg>
+                      Other Calendar
+                    </a>
+
+                  </div>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Programming types -->
+    <section class="bg-light-blue py-20 md:py-28 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+
+        <h2 class="font-heading text-dark-blue text-3xl md:text-4xl mb-6 fade-up">
+          What to Expect
+        </h2>
+        <p class="font-heading text-dark-blue text-lg leading-relaxed mb-12 fade-up">
+          POLIS UF programming is designed to prepare students for careers in public service, law,
+          government, policy, and civic leadership through a mix of professional development,
+          networking, and community engagement events.
+        </p>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {[
+            'Law Panels', 'Public Service Panels', 'Resume Workshops',
+            'Networking Nights', 'Speaker Events', 'Coffee Chats',
+            'Headshot Events', 'Voter Registration', 'Law School Admissions Panels',
+          ].map((type, i) => (
+            <div
+              class="fade-up bg-white/60 border border-dark-blue/10 rounded-sm px-4 py-3"
+              style={`transition-delay: ${i * 60}ms`}
+            >
+              <p class="font-heading text-dark-blue text-sm">{type}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</Layout>

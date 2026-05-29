@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+/*
+  Brand palette and typography tokens.
+  All colors and fonts are defined here as Tailwind theme variables.
+  They also become CSS custom properties (var(--color-gold), etc.)
+  so components never have scattered hex values.
+
+  CONTRAST NOTES (WCAG AA):
+  - Gold (#ce9537) on white = ~2.9:1 — FAILS for small body text.
+    Use Gold only for large text (24px+), icons, borders, button fills with dark text.
+  - Dark Blue on white = passes. White on Dark Blue = passes.
+*/
+@theme {
+  /* --- Colors --- */
+  --color-gold:       #ce9537;
+  --color-dark-blue:  #152e46;
+  --color-gray:       #d9d9d9;
+  --color-light-blue: #b9d9eb;
+  --color-surface:    #f3f3f3;   /* subtle alternating card background */
+  --color-white:      #ffffff;
+  --color-black:      #000000;
+
+  /* --- Typography --- */
+  --font-heading: 'EB Garamond Variable', Georgia, serif;
+  --font-body:    'EB Garamond Variable', Georgia, serif;
+}
+
+/* Base defaults */
+html {
+  font-family: var(--font-body);
+  color: var(--color-dark-blue);
+  background-color: var(--color-white);
+}
+
+/* Smooth scroll for users who have not opted out of motion */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* ----------------------------------------------------------------
+   Founding Class banner
+   Hidden by default. The early <head> script adds .banner-show to
+   <html> when the banner has not been dismissed, revealing it.
+   ---------------------------------------------------------------- */
+#founding-banner { display: none; }
+html.banner-show #founding-banner { display: flex; }
+
+/* ----------------------------------------------------------------
+   Prose measure — 65-character line length for standalone prose.
+   Apply to text wrappers in sections that have no competing photo.
+   ---------------------------------------------------------------- */
+.prose-measure {
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ----------------------------------------------------------------
+   Drop cap — first letter of .lede paragraphs.
+   4.25em at 1.125rem body ≈ 4.78rem, spanning roughly 3 lines.
+   ---------------------------------------------------------------- */
+.lede::first-letter {
+  font-family: var(--font-heading);
+  font-size: 4.25em;
+  line-height: 0.82;
+  float: left;
+  color: var(--color-dark-blue);
+  margin: 0.04em 0.1em 0 0;
+}
+
+/* ----------------------------------------------------------------
+   Pull quote — editorial blockquote with gold left border.
+   ---------------------------------------------------------------- */
+blockquote.pull-quote {
+  border-left: 4px solid var(--color-gold);
+  padding: 0.75rem 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  font-size: 1.45rem;
+  line-height: 1.55;
+  color: var(--color-dark-blue);
+}
+blockquote.pull-quote p { margin: 0; }
+
+/* ----------------------------------------------------------------
+   Section sub-nav — sticky horizontal bar, lg+ only.
+   Active state uses weight + border (not color alone) for a11y.
+   ---------------------------------------------------------------- */
+.section-nav-link {
+  color: var(--color-dark-blue);
+  opacity: 0.5;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  transition: opacity 150ms ease, border-color 150ms ease;
+}
+.section-nav-link:hover { opacity: 0.8; }
+.section-nav-link.active {
+  opacity: 1;
+  font-weight: 600;
+  border-bottom-color: var(--color-gold);
+}
+
+/* ----------------------------------------------------------------
+   Transparent header — fades to solid dark blue on scroll.
+   Wraps both the founding class banner and the <header>.
+   ---------------------------------------------------------------- */
+#site-header-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  transition: background-color 0.4s ease-out;
+}
+#site-header-wrapper.header-scrolled {
+  background-color: var(--color-dark-blue);
+}
+
+/* ----------------------------------------------------------------
+   Desktop Members dropdown panel — visibility controlled by JS.
+   Click-primary interaction.
+   ---------------------------------------------------------------- */
+.dropdown-panel {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+.dropdown-panel.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Rotate chevron when <details> is open (mobile Members accordion) */
+details[open] .details-chevron {
+  transform: rotate(180deg);
+}
+
+/* ----------------------------------------------------------------
+   Scroll fade-up entrance animation.
+   Small translateY (8px → 0) + opacity for a subtle rise.
+   prefers-reduced-motion: disable both changes entirely.
+   ---------------------------------------------------------------- */
+.fade-up {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

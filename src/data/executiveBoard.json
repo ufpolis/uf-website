@@ -1,0 +1,133 @@
+[
+  {
+    "_instructions": "HOW TO EDIT THIS FILE — Each entry is one member card on the Executive Board page. HEADSHOT: save the JPEG to public/headshots/ and set 'headshot' to '/headshots/first-last.jpg' (e.g. '/headshots/ana-gabriela-columa.jpg'). If no headshot yet, leave as null and the site shows a placeholder. LINKEDIN: set 'linkedin' to the full URL (e.g. 'https://www.linkedin.com/in/username'). If unknown, leave as null and no button will appear. BIO and MAJOR: replace the placeholder text in brackets with real content. To ADD a new member: copy one block from { to }, paste after the last }, add a comma between them, and fill in all fields. To REMOVE a member: delete the entire block and the comma before it."
+  },
+  {
+    "name": "Ana Gabriela Columa",
+    "position": "Co-President",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/acoluma/"
+  },
+  {
+    "name": "Elena Gonatos",
+    "position": "Co-President",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/elena-gonatos/"
+  },
+  {
+    "name": "Bianca Anicama",
+    "position": "VP of Programming",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/bianca-anicama-207860264/"
+  },
+  {
+    "name": "Miranda Blair",
+    "position": "VP of Finance",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/mblairacc/"
+  },
+  {
+    "name": "Abby Price",
+    "position": "VP of Recruitment",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/abagail-price-b8a52229a/"
+  },
+  {
+    "name": "Sandra Ukah",
+    "position": "VP of Professional Development",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/sandra-ukah/"
+  },
+  {
+    "name": "David Kraehmer",
+    "position": "VP of Professional Development",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/david-kraehmer456/"
+  },
+  {
+    "name": "Sophia Flack",
+    "position": "VP of New Member Education & Membership",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/sophia-flack/"
+  },
+  {
+    "name": "Sherry Jiang",
+    "position": "VP of New Member Education & Membership",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/sherry-jiang-/"
+  },
+  {
+    "name": "Sofia Castaneda",
+    "position": "VP of Internal Affairs",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/sofiacastac/"
+  },
+  {
+    "name": "Uli Saetre",
+    "position": "VP of Expansion",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/ulisaetre/"
+  },
+  {
+    "name": "Maya Laxer",
+    "position": "VP of Diversity, Equity, and Inclusion",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/mayalaxer/"
+  },
+  {
+    "name": "Carolina Vairo",
+    "position": "Social Chair",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/carolinacantonvairo/"
+  },
+  {
+    "name": "Manuella Souck",
+    "position": "Public Relations Chair",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/manuellasouck/"
+  },
+  {
+    "name": "Oliwia Lesniak",
+    "position": "Alumni Relations Chair",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/oliwia-lesniak/"
+  },
+  {
+    "name": "Austin Purinton",
+    "position": "Advocacy Chair",
+    "major": "[Major, Year]",
+    "bio": "[Bio placeholder — to be filled in]",
+    "headshot": null,
+    "linkedin": "https://www.linkedin.com/in/austin-purinton-8369b3244/"
+  }
+]

@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import polisPlaceholder from '../assets/polis_placeholder.jpg';
+
+// To add or remove organizations, edit src/data/network.json — not this file.
+import networkData from '../data/network.json';
+const orgs = networkData.filter((entry: any) => !entry._instructions);
+---
+
+<Layout
+  title="Network — POLIS UF"
+  description="A growing network of POLIS UF members working across public service, law, government, and policy."
+>
+  <main id="main-content">
+
+    <!-- Page header -->
+    <section class="bg-dark-blue py-20 md:py-28 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="font-heading text-gold text-sm uppercase tracking-widest mb-4">Where We Work</p>
+        <h1 class="font-heading text-white text-5xl md:text-6xl leading-tight mb-6">
+          Our Network
+        </h1>
+        <p class="font-heading text-white/80 text-xl max-w-2xl mx-auto leading-relaxed">
+          POLIS UF members and alumni work and intern across public service, law, government,
+          policy, and civic leadership. This page will grow as our Founding Class enters the field.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- Network grid -->
+    <section class="bg-white py-20 md:py-28 px-6">
+      <div class="max-w-6xl mx-auto">
+
+        <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center mb-14 fade-up">
+          Organizations and Institutions
+        </h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {orgs.map((org: any, i: number) => (
+            <div
+              class="fade-up bg-white border border-gray rounded-sm p-5 flex flex-col items-center gap-3
+                     hover:border-gold hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-default"
+              style={`transition-delay: ${i * 60}ms`}
+            >
+              <div class="w-full aspect-square overflow-hidden rounded-sm bg-gray/20 flex items-center justify-center">
+                {org.logo
+                  ? (
+                    /* Real logo: served from public/network-logos/ as a URL — no Astro processing needed for SVG */
+                    <img
+                      src={org.logo}
+                      alt={org.alt}
+                      width="120"
+                      height="120"
+                      class="w-3/4 h-3/4 object-contain"
+                      loading="lazy"
+                    />
+                  ) : (
+                    /* No logo yet: show the square placeholder */
+                    <Image
+                      src={polisPlaceholder}
+                      alt={org.alt}
+                      width={120}
+                      height={120}
+                      class="w-3/4 h-3/4 object-contain opacity-60"
+                      loading="lazy"
+                    />
+                  )
+                }
+              </div>
+              <p class="font-heading text-dark-blue text-sm text-center leading-snug">
+                {org.orgName}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <p class="font-heading text-dark-blue/50 text-sm text-center mt-14 fade-up">
+          Logos and organizations will be added as members and alumni share their placements.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+</Layout>

@@ -1,0 +1,32 @@
+[
+  {
+    "_instructions": "HOW TO EDIT THIS FILE — Each entry is one event card on the Programming page. To ADD an event: copy one block from { to }, paste after the last }, add a comma between them, and fill in all fields. SLUG: a short URL-safe name used in the calendar download link — use lowercase letters and hyphens only, and never change it once the event is live. DATE: the human-readable display date (e.g. 'September 12, 2025'). STARTISO / ENDISO: machine-readable datetime in the format 'YYYY-MM-DDTHH:MM:SS' (24-hour, local time). Set both to null if the date is not yet confirmed — the calendar buttons will be hidden until a date is set. To REMOVE an event: delete its entire block and the comma before it."
+  },
+  {
+    "name": "Law School Admissions Panel",
+    "slug": "law-school-admissions-panel",
+    "description": "Join us for a panel discussion with law school admissions representatives and current law students. Learn about the application process, what schools look for, and how to strengthen your candidacy.",
+    "date": "June 4, 2026",
+    "startISO": "2026-06-04T18:00:00",
+    "endISO": "2026-06-04T20:00:00",
+    "location": "[Location TBD]"
+  },
+  {
+    "name": "Resume and LinkedIn Workshop",
+    "slug": "resume-linkedin-workshop",
+    "description": "A hands-on professional development workshop covering resume writing, LinkedIn optimization, and elevator pitch preparation for careers in law, government, policy, and public service.",
+    "date": "[Date TBD]",
+    "startISO": null,
+    "endISO": null,
+    "location": "[Location TBD]"
+  },
+  {
+    "name": "Public Service Networking Night",
+    "slug": "public-service-networking-night",
+    "description": "An evening networking event connecting POLIS UF members with professionals working in public service, government, policy, advocacy, and civic leadership across Gainesville and beyond.",
+    "date": "[Date TBD]",
+    "startISO": null,
+    "endISO": null,
+    "location": "[Location TBD]"
+  }
+]

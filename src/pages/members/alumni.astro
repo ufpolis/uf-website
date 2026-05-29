@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import polisPlaceholder from '../../assets/polis_placeholder.jpg';
+---
+
+<Layout
+  title="Alumni — POLIS UF"
+  description="The long-term alumni network being built by POLIS UF's founding members at the University of Florida."
+>
+  <main id="main-content">
+
+    <!-- Page header -->
+    <section class="bg-dark-blue py-20 md:py-28 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="font-heading text-gold text-sm uppercase tracking-widest mb-4">Alumni</p>
+        <h1 class="font-heading text-white text-5xl md:text-6xl leading-tight mb-6">
+          Alumni
+        </h1>
+        <p class="font-heading text-white/80 text-xl max-w-2xl mx-auto leading-relaxed">
+          Building Our Alumni Network.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- Alumni overview -->
+    <section class="bg-white py-20 md:py-28 px-6">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+          <!-- Photo placeholder -->
+          <div class="fade-up">
+            <div class="rounded-sm overflow-hidden border border-gray shadow-lg">
+              <Image
+                src={polisPlaceholder}
+                alt="POLIS UF alumni network — photos coming soon"
+                width={600}
+                height={600}
+                class="w-full h-auto object-cover opacity-70"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="fade-up" style="transition-delay: 150ms">
+            <h2 class="font-heading text-dark-blue text-3xl md:text-4xl mb-6">
+              A Network Built to Last
+            </h2>
+            <p class="font-heading text-dark-blue text-lg leading-relaxed mb-6">
+              This page will eventually highlight alumni, professional placements, and the long-term
+              network created by our founding members.
+            </p>
+            <p class="font-heading text-dark-blue text-lg leading-relaxed">
+              As POLIS UF's Founding Class graduates and enters the field, this page will grow into
+              a record of where our members work, the offices they serve in, and the causes they
+              champion. The alumni network is one of the most enduring legacies a founding class
+              can leave.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Alumni profiles placeholder -->
+    <section class="bg-light-blue py-20 md:py-28 px-6">
+      <div class="max-w-4xl mx-auto text-center fade-up">
+        <h2 class="font-heading text-dark-blue text-3xl md:text-4xl mb-6">
+          Alumni Profiles
+        </h2>
+        <p class="font-heading text-dark-blue text-lg leading-relaxed">
+          Alumni profiles and professional placements will be featured here as our Founding Class
+          graduates and enters the field.
+        </p>
+      </div>
+    </section>
+
+  </main>
+</Layout>

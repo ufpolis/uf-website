@@ -1,0 +1,708 @@
+---
+import '@fontsource-variable/eb-garamond';
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import polisSquare from '../assets/polis_square.png';
+import site from '../data/site.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'POLIS UF — Pi Lambda Sigma at the University of Florida',
+  description = 'Pi Lambda Sigma (POLIS) UF is a nonpartisan pre-professional government and pre-law society at the University of Florida for students interested in law, public service, policy, and leadership.',
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <title>{title}</title>
+    <script is:inline>if (!localStorage.getItem('bannerDismissed')) document.documentElement.classList.add('banner-show');</script>
+  </head>
+
+  <body>
+    <!-- Skip-to-content link (WCAG 2.2 AA — first focusable element) -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded focus:bg-gold focus:text-dark-blue focus:font-heading focus:text-base"
+    >
+      Skip to main content
+    </a>
+
+    <!-- ============================================================
+         STICKY HEADER WRAPPER
+         Banner + nav bar share a single sticky container so they
+         both transition from transparent to solid dark blue on scroll.
+         The head script applies .header-scrolled once the hero exits.
+         ============================================================ -->
+    <div id="site-header-wrapper" class="sticky top-0 z-50">
+
+    <!-- ============================================================
+         FOUNDING CLASS BANNER
+         Hidden by default via CSS; head script reveals it when not dismissed.
+         ============================================================ -->
+    <div
+      id="founding-banner"
+      class="relative text-white px-4 md:px-8 py-2.5 items-center justify-center gap-2 md:gap-4"
+    >
+      <p class="font-heading text-sm text-center leading-snug">
+        Now recruiting our Founding Class. Applications are open.
+        <a
+          href={site.applyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-semibold underline hover:no-underline ml-1"
+        >Apply Now<span class="sr-only"> (opens in new tab)</span></a>
+      </p>
+      <button
+        id="dismiss-banner"
+        type="button"
+        aria-label="Dismiss recruitment banner"
+        class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-7 h-7 rounded hover:bg-white/10 transition-colors"
+      >
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="1" y1="1" x2="11" y2="11"/>
+          <line x1="11" y1="1" x2="1" y2="11"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- ============================================================
+         SITE HEADER
+         Desktop (≥768px): logo | nav links | social icons + email
+         Mobile  (<768px): logo | social icons + email + hamburger
+         ============================================================ -->
+    <header>
+      <nav
+        aria-label="Main navigation"
+        class="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-6 h-14 md:h-16"
+      >
+
+        <!-- Logo (always visible) -->
+        <a href="/" aria-label="POLIS UF — home">
+          <Image
+            src={polisSquare}
+            alt=""
+            width={88}
+            height={88}
+            class="h-9 md:h-11 w-auto"
+            loading="eager"
+          />
+        </a>
+
+        <!-- Desktop nav links (hidden on mobile) -->
+        <ul class="hidden md:flex items-center gap-1 list-none m-0 p-0" role="list">
+
+          <li>
+            <a
+              href="/"
+              aria-current={currentPath === '/' ? 'page' : undefined}
+              class:list={[
+                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                currentPath === '/' ? 'text-gold' : 'text-white/80 hover:text-white',
+              ]}
+            >Home</a>
+          </li>
+
+          <li>
+            <a
+              href="/network"
+              aria-current={currentPath.startsWith('/network') ? 'page' : undefined}
+              class:list={[
+                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                currentPath.startsWith('/network') ? 'text-gold' : 'text-white/80 hover:text-white',
+              ]}
+            >Network</a>
+          </li>
+
+          <!-- Members dropdown: click-primary, keyboard-accessible -->
+          <li class="relative">
+            <button
+              id="members-btn"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              class:list={[
+                'font-heading text-sm px-3 py-2 rounded-sm transition-colors flex items-center gap-1 cursor-pointer',
+                currentPath.startsWith('/members') ? 'text-gold' : 'text-white/80 hover:text-white',
+              ]}
+            >
+              Members
+              <svg
+                id="members-chevron"
+                aria-hidden="true"
+                class="w-3 h-3 opacity-60 transition-transform duration-200"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="2 4 6 8 10 4" />
+              </svg>
+            </button>
+
+            <ul
+              id="members-panel"
+              role="menu"
+              class="dropdown-panel absolute top-full left-0 mt-1 w-52 bg-dark-blue border border-white/10 rounded-sm shadow-lg list-none p-1"
+            >
+              <li role="none">
+                <a
+                  href="/members/executive-board"
+                  role="menuitem"
+                  aria-current={currentPath === '/members/executive-board' ? 'page' : undefined}
+                  class="block font-heading text-sm text-white/80 hover:text-white hover:bg-white/10 px-4 py-2 rounded-sm transition-colors"
+                >Executive Board</a>
+              </li>
+              <li role="none">
+                <a
+                  href="/members/active-members"
+                  role="menuitem"
+                  aria-current={currentPath === '/members/active-members' ? 'page' : undefined}
+                  class="block font-heading text-sm text-white/80 hover:text-white hover:bg-white/10 px-4 py-2 rounded-sm transition-colors"
+                >Active Members</a>
+              </li>
+              <li role="none">
+                <a
+                  href="/members/alumni"
+                  role="menuitem"
+                  aria-current={currentPath === '/members/alumni' ? 'page' : undefined}
+                  class="block font-heading text-sm text-white/80 hover:text-white hover:bg-white/10 px-4 py-2 rounded-sm transition-colors"
+                >Alumni</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a
+              href="/programming"
+              aria-current={currentPath.startsWith('/programming') ? 'page' : undefined}
+              class:list={[
+                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                currentPath.startsWith('/programming') ? 'text-gold' : 'text-white/80 hover:text-white',
+              ]}
+            >Programming</a>
+          </li>
+
+          <li>
+            <a
+              href="/philanthropy"
+              aria-current={currentPath.startsWith('/philanthropy') ? 'page' : undefined}
+              class:list={[
+                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                currentPath.startsWith('/philanthropy') ? 'text-gold' : 'text-white/80 hover:text-white',
+              ]}
+            >Philanthropy</a>
+          </li>
+
+          <li>
+            <a
+              href="/join"
+              aria-current={currentPath.startsWith('/join') ? 'page' : undefined}
+              class:list={[
+                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                currentPath.startsWith('/join') ? 'text-gold' : 'text-white/80 hover:text-white',
+              ]}
+            >Join</a>
+          </li>
+
+          <li>
+            <a
+              href="/contact"
+              aria-current={currentPath.startsWith('/contact') ? 'page' : undefined}
+              class:list={[
+                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                currentPath.startsWith('/contact') ? 'text-gold' : 'text-white/80 hover:text-white',
+              ]}
+            >Contact</a>
+          </li>
+
+          <!-- Divider between nav links and social icons -->
+          <li aria-hidden="true" class="w-px h-4 bg-white/20 mx-1"></li>
+
+        </ul>
+
+        <!-- Right section: social icons (all viewports) + hamburger (mobile only) -->
+        <div class="flex items-center">
+
+          <a
+            href={site.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center w-10 h-10 rounded-sm text-white/60 hover:text-gold transition-colors"
+            aria-label="POLIS UF on Instagram (opens in new tab)"
+          >
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+            <span class="sr-only">Instagram (opens in new tab)</span>
+          </a>
+
+          <a
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center w-10 h-10 rounded-sm text-white/60 hover:text-gold transition-colors"
+            aria-label="POLIS UF on LinkedIn (opens in new tab)"
+          >
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="sr-only">LinkedIn (opens in new tab)</span>
+          </a>
+
+          <a
+            href={`mailto:${site.email}`}
+            class="flex items-center justify-center w-10 h-10 rounded-sm text-white/60 hover:text-gold transition-colors"
+            aria-label={`Email POLIS UF at ${site.email}`}
+          >
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M2 7l10 7 10-7"/>
+            </svg>
+          </a>
+
+          <!-- Hamburger button (mobile only) -->
+          <button
+            id="hamburger-btn"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Open menu"
+            class="md:hidden flex items-center justify-center w-11 h-11 ml-1 text-white/80 hover:text-gold transition-colors"
+          >
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="2" y1="5" x2="20" y2="5"/>
+              <line x1="2" y1="11" x2="20" y2="11"/>
+              <line x1="2" y1="17" x2="20" y2="17"/>
+            </svg>
+          </button>
+
+        </div>
+
+      </nav>
+    </header>
+
+    </div>{/* end #site-header-wrapper */}
+
+    <!-- ============================================================
+         MOBILE OVERLAY
+         Full-screen, slides in from the right.
+         aria-hidden + translate-x-full while closed.
+         JS toggles both; focus is trapped while open.
+         ============================================================ -->
+    <div
+      id="mobile-menu"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Navigation menu"
+      aria-hidden="true"
+      class="fixed inset-0 z-[60] bg-dark-blue flex flex-col overflow-y-auto
+             translate-x-full transition-transform duration-300 ease-in-out"
+    >
+      <!-- Close button -->
+      <div class="flex justify-end px-4 pt-3 shrink-0">
+        <button
+          id="close-menu-btn"
+          type="button"
+          aria-label="Close menu"
+          class="flex items-center justify-center w-11 h-11 text-white/80 hover:text-gold transition-colors"
+        >
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="3" x2="19" y2="19"/>
+            <line x1="19" y1="3" x2="3" y2="19"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile nav links -->
+      <nav aria-label="Mobile navigation" class="flex flex-col px-6 pb-12 mt-2">
+
+        <a
+          href="/"
+          aria-current={currentPath === '/' ? 'page' : undefined}
+          class:list={[
+            'font-heading text-xl py-4 border-b border-white/10 transition-colors',
+            currentPath === '/' ? 'text-gold' : 'text-white hover:text-gold',
+          ]}
+        >Home</a>
+
+        <a
+          href="/network"
+          aria-current={currentPath.startsWith('/network') ? 'page' : undefined}
+          class:list={[
+            'font-heading text-xl py-4 border-b border-white/10 transition-colors',
+            currentPath.startsWith('/network') ? 'text-gold' : 'text-white hover:text-gold',
+          ]}
+        >Network</a>
+
+        <!-- Members accordion using <details>/<summary> — no JS needed -->
+        <details
+          class="border-b border-white/10"
+          open={currentPath.startsWith('/members') || undefined}
+        >
+          <summary
+            class:list={[
+              'font-heading text-xl py-4 cursor-pointer list-none flex justify-between items-center transition-colors',
+              currentPath.startsWith('/members') ? 'text-gold' : 'text-white hover:text-gold',
+            ]}
+          >
+            Members
+            <svg
+              aria-hidden="true"
+              class="details-chevron w-4 h-4 shrink-0 opacity-60 transition-transform duration-200"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="3 6 8 11 13 6"/>
+            </svg>
+          </summary>
+          <div class="flex flex-col pl-4 pb-3 pt-1">
+            <a
+              href="/members/executive-board"
+              aria-current={currentPath === '/members/executive-board' ? 'page' : undefined}
+              class:list={[
+                'font-heading text-base py-3 border-b border-white/5 transition-colors',
+                currentPath === '/members/executive-board' ? 'text-gold' : 'text-white/80 hover:text-gold',
+              ]}
+            >Executive Board</a>
+            <a
+              href="/members/active-members"
+              aria-current={currentPath === '/members/active-members' ? 'page' : undefined}
+              class:list={[
+                'font-heading text-base py-3 border-b border-white/5 transition-colors',
+                currentPath === '/members/active-members' ? 'text-gold' : 'text-white/80 hover:text-gold',
+              ]}
+            >Active Members</a>
+            <a
+              href="/members/alumni"
+              aria-current={currentPath === '/members/alumni' ? 'page' : undefined}
+              class:list={[
+                'font-heading text-base py-3 transition-colors',
+                currentPath === '/members/alumni' ? 'text-gold' : 'text-white/80 hover:text-gold',
+              ]}
+            >Alumni</a>
+          </div>
+        </details>
+
+        <a
+          href="/programming"
+          aria-current={currentPath.startsWith('/programming') ? 'page' : undefined}
+          class:list={[
+            'font-heading text-xl py-4 border-b border-white/10 transition-colors',
+            currentPath.startsWith('/programming') ? 'text-gold' : 'text-white hover:text-gold',
+          ]}
+        >Programming</a>
+
+        <a
+          href="/philanthropy"
+          aria-current={currentPath.startsWith('/philanthropy') ? 'page' : undefined}
+          class:list={[
+            'font-heading text-xl py-4 border-b border-white/10 transition-colors',
+            currentPath.startsWith('/philanthropy') ? 'text-gold' : 'text-white hover:text-gold',
+          ]}
+        >Philanthropy</a>
+
+        <a
+          href="/join"
+          aria-current={currentPath.startsWith('/join') ? 'page' : undefined}
+          class:list={[
+            'font-heading text-xl py-4 border-b border-white/10 transition-colors',
+            currentPath.startsWith('/join') ? 'text-gold' : 'text-white hover:text-gold',
+          ]}
+        >Join</a>
+
+        <a
+          href="/contact"
+          aria-current={currentPath.startsWith('/contact') ? 'page' : undefined}
+          class:list={[
+            'font-heading text-xl py-4 transition-colors',
+            currentPath.startsWith('/contact') ? 'text-gold' : 'text-white hover:text-gold',
+          ]}
+        >Contact</a>
+
+      </nav>
+    </div>
+
+    <slot />
+
+    <!-- ============================================================
+         SHARED FOOTER
+         Values imported from src/data/site.json.
+         To update a link or email, edit that file — not this one.
+         ============================================================ -->
+    <footer class="bg-dark-blue text-white">
+      <div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+
+        <!-- Brand column -->
+        <div class="flex flex-col gap-4">
+          <a href="/" aria-label="POLIS UF — home" class="w-fit">
+            <Image
+              src={polisSquare}
+              alt=""
+              width={104}
+              height={104}
+              class="h-13 w-auto"
+              loading="lazy"
+            />
+          </a>
+          <div>
+            <p class="font-heading text-white text-lg leading-snug">Pi Lambda Sigma</p>
+            <p class="font-heading text-white/60 text-sm">University of Florida</p>
+          </div>
+          <p class="font-heading text-white/50 text-sm leading-relaxed max-w-xs">
+            A nonpartisan pre-professional government society for students passionate about
+            public service, law, policy, and civic leadership.
+          </p>
+        </div>
+
+        <!-- Quick links column -->
+        <div>
+          <h2 class="font-heading text-gold text-sm uppercase tracking-widest mb-5">Quick Links</h2>
+          <ul class="grid grid-cols-2 gap-x-4 gap-y-2 list-none p-0 m-0">
+            <li><a href="/" class="font-heading text-white/70 hover:text-white text-sm transition-colors">Home</a></li>
+            <li><a href="/network" class="font-heading text-white/70 hover:text-white text-sm transition-colors">Network</a></li>
+            <li><a href="/members/executive-board" class="font-heading text-white/70 hover:text-white text-sm transition-colors">Executive Board</a></li>
+            <li><a href="/members/active-members" class="font-heading text-white/70 hover:text-white text-sm transition-colors">Active Members</a></li>
+            <li><a href="/members/alumni" class="font-heading text-white/70 hover:text-white text-sm transition-colors">Alumni</a></li>
+            <li><a href="/programming" class="font-heading text-white/70 hover:text-white text-sm transition-colors">Programming</a></li>
+            <li><a href="/philanthropy" class="font-heading text-white/70 hover:text-white text-sm transition-colors">Philanthropy</a></li>
+            <li><a href="/join" class="font-heading text-white/70 hover:text-white text-sm transition-colors">Join</a></li>
+            <li><a href="/contact" class="font-heading text-white/70 hover:text-white text-sm transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Connect column -->
+        <div>
+          <h2 class="font-heading text-gold text-sm uppercase tracking-widest mb-5">Connect</h2>
+          <div class="flex flex-col gap-3">
+            <a
+              href={site.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-heading text-white/70 hover:text-white text-sm transition-colors flex items-center gap-2"
+            >
+              Instagram
+              <span class="text-white/30">— {site.instagramHandle}</span>
+              <span class="sr-only">(opens in new tab)</span>
+            </a>
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-heading text-white/70 hover:text-white text-sm transition-colors"
+            >
+              LinkedIn
+              <span class="sr-only">(opens in new tab)</span>
+            </a>
+            <a
+              href={`mailto:${site.email}`}
+              class="font-heading text-white/70 hover:text-white text-sm transition-colors"
+            >
+              {site.email}
+            </a>
+            <a
+              href={site.applyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-3 inline-block bg-gold text-dark-blue font-heading font-semibold text-sm px-5 py-2 rounded-sm hover:brightness-110 transition w-fit"
+            >
+              Apply Now
+              <span class="sr-only">(opens in new tab)</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-white/10">
+        <p class="max-w-7xl mx-auto px-6 py-5 font-heading text-white/40 text-xs text-center">
+          &copy; 2025 Pi Lambda Sigma at the University of Florida. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // ----------------------------------------------------------------
+      // Scroll fade-up entrance animation
+      // ----------------------------------------------------------------
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.06 }
+      );
+      document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+
+      // ----------------------------------------------------------------
+      // Mobile menu
+      // ----------------------------------------------------------------
+      const hamburger = document.getElementById('hamburger-btn') as HTMLButtonElement;
+      const closeBtn  = document.getElementById('close-menu-btn') as HTMLButtonElement;
+      const overlay   = document.getElementById('mobile-menu') as HTMLElement;
+
+      function openMenu() {
+        overlay.classList.remove('translate-x-full');
+        overlay.setAttribute('aria-hidden', 'false');
+        hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.setAttribute('aria-label', 'Close menu');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      }
+
+      function closeMenu() {
+        overlay.classList.add('translate-x-full');
+        overlay.setAttribute('aria-hidden', 'true');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
+        document.body.style.overflow = '';
+        hamburger.focus();
+      }
+
+      hamburger.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+
+      // Escape key + focus trap
+      overlay.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Escape') { closeMenu(); return; }
+        if (e.key !== 'Tab') return;
+        const focusable = [...overlay.querySelectorAll<HTMLElement>(
+          'a[href], button, summary'
+        )];
+        const first = focusable[0];
+        const last  = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+
+      // Close on viewport resize to desktop
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768 && overlay.getAttribute('aria-hidden') === 'false') {
+          closeMenu();
+        }
+      });
+
+      // ----------------------------------------------------------------
+      // Desktop Members dropdown — click primary, keyboard navigable
+      // ----------------------------------------------------------------
+      const membersBtn    = document.getElementById('members-btn')     as HTMLButtonElement | null;
+      const membersPanel  = document.getElementById('members-panel')   as HTMLElement | null;
+      const membersChevron = document.getElementById('members-chevron') as HTMLElement | null;
+
+      if (membersBtn && membersPanel) {
+        const menuItems = [...membersPanel.querySelectorAll<HTMLElement>('[role="menuitem"]')];
+
+        const isPanelOpen = () => membersPanel.classList.contains('is-open');
+
+        function openDropdown() {
+          membersPanel!.classList.add('is-open');
+          membersBtn!.setAttribute('aria-expanded', 'true');
+          if (membersChevron) membersChevron.style.transform = 'rotate(180deg)';
+        }
+
+        function closeDropdown() {
+          membersPanel!.classList.remove('is-open');
+          membersBtn!.setAttribute('aria-expanded', 'false');
+          if (membersChevron) membersChevron.style.transform = '';
+        }
+
+        // Click to toggle
+        membersBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          isPanelOpen() ? closeDropdown() : openDropdown();
+        });
+
+        // Keyboard on trigger button
+        membersBtn.addEventListener('keydown', (e: KeyboardEvent) => {
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            openDropdown();
+            menuItems[0]?.focus();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            openDropdown();
+            menuItems[menuItems.length - 1]?.focus();
+          } else if (e.key === 'Escape') {
+            closeDropdown();
+          }
+        });
+
+        // Arrow key navigation within dropdown
+        membersPanel.addEventListener('keydown', (e: KeyboardEvent) => {
+          const idx = menuItems.indexOf(document.activeElement as HTMLElement);
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            menuItems[(idx + 1) % menuItems.length]?.focus();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            menuItems[(idx - 1 + menuItems.length) % menuItems.length]?.focus();
+          } else if (e.key === 'Escape') {
+            closeDropdown();
+            membersBtn!.focus();
+          } else if (e.key === 'Tab') {
+            // Close and let focus move naturally
+            closeDropdown();
+          }
+        });
+
+        // Click outside to close
+        document.addEventListener('click', (e) => {
+          if (
+            isPanelOpen() &&
+            !membersBtn!.contains(e.target as Node) &&
+            !membersPanel!.contains(e.target as Node)
+          ) {
+            closeDropdown();
+          }
+        });
+      }
+
+      // ----------------------------------------------------------------
+      // Transparent header — become solid after ~0.5 inch of scroll
+      // ----------------------------------------------------------------
+      const siteHeaderWrapper = document.getElementById('site-header-wrapper');
+      function updateHeader() {
+        siteHeaderWrapper?.classList.toggle('header-scrolled', window.scrollY > 48);
+      }
+      window.addEventListener('scroll', updateHeader, { passive: true });
+      updateHeader();
+
+      // ----------------------------------------------------------------
+      // Founding Class banner dismiss
+      // ----------------------------------------------------------------
+      const banner = document.getElementById('founding-banner');
+      const dismissBtn = document.getElementById('dismiss-banner');
+      dismissBtn?.addEventListener('click', () => {
+        banner?.remove();
+        localStorage.setItem('bannerDismissed', '1');
+      });
+    </script>
+
+  </body>
+</html>

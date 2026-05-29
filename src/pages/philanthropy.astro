@@ -1,0 +1,231 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import polisPlaceholder from '../assets/polis_placeholder.jpg';
+
+const focusAreas = [
+  {
+    title: 'Community Engagement',
+    description:
+      'Partnering with local organizations, schools, nonprofits, and public service groups to support Gainesville residents through meaningful service opportunities.',
+  },
+  {
+    title: 'Education and Resource Access',
+    description:
+      'Creating programming that expands access to educational, professional, and civic resources for students and community members. This may include workshops, resource guides, mentorship opportunities, and initiatives that help reduce barriers to professional and public service careers.',
+  },
+  {
+    title: 'Immigrant Rights and Inclusive Advocacy',
+    description:
+      'Developing programming and partnerships that support immigrant communities, highlight immigrant rights issues, and encourage students to engage with the legal, policy, and human impact of immigration-related advocacy.',
+  },
+  {
+    title: 'Policy Proposals and Civic Engagement',
+    description:
+      'Encouraging members to research community issues, develop policy proposals, and participate in civic engagement projects that promote informed, responsible, and solution-oriented public service.',
+  },
+  {
+    title: 'Access to Professional Opportunity',
+    description:
+      'Organizing initiatives such as professional clothing drives, career-readiness workshops, networking support, and mentorship opportunities to help reduce barriers for students pursuing careers in law, government, policy, and public service.',
+  },
+  {
+    title: 'Structured Service Requirements',
+    description:
+      "Requiring members to participate in service opportunities each semester to ensure that POLIS UF's commitment to public service is active, consistent, and connected to the Gainesville community.",
+  },
+];
+
+// SVG icons for each focus area (stroke-style, currentColor inherits text-gold from parent)
+const icons = [
+  // Community Engagement — users
+  `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  // Education & Resource Access — open book
+  `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+  // Immigrant Rights — shield
+  `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  // Policy Proposals — document with lines
+  `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="13" y2="15"/></svg>`,
+  // Access to Professional Opportunity — briefcase
+  `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>`,
+  // Structured Service — calendar with check
+  `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg>`,
+];
+---
+
+<Layout
+  title="Philanthropy — POLIS UF"
+  description="Service rooted in public purpose. Learn about POLIS UF's philanthropy focus areas and community initiatives."
+>
+  <main id="main-content">
+
+    <!-- Page header -->
+    <section class="bg-dark-blue py-20 md:py-28 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="font-heading text-gold text-sm uppercase tracking-widest mb-4">Service with Purpose</p>
+        <h1 class="font-heading text-white text-5xl md:text-6xl leading-tight mb-6">
+          Philanthropy
+        </h1>
+        <p class="font-heading text-white/80 text-xl max-w-2xl mx-auto leading-relaxed">
+          Service rooted in public purpose.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- Section sub-nav — sticky below header, lg+ only -->
+    <nav
+      aria-label="Page sections"
+      class="hidden lg:block sticky top-14 md:top-16 z-40 bg-white border-b border-gray/60"
+    >
+      <div class="max-w-7xl mx-auto px-6 flex gap-8 py-3">
+        <a href="#about"             class="section-nav-link font-heading text-sm whitespace-nowrap">About</a>
+        <a href="#focus-areas"       class="section-nav-link font-heading text-sm whitespace-nowrap">Focus Areas</a>
+        <a href="#future-initiatives" class="section-nav-link font-heading text-sm whitespace-nowrap">Future Initiatives</a>
+      </div>
+    </nav>
+
+
+    <!-- Intro section -->
+    <section id="about" data-section class="bg-white py-20 md:py-28 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-start gap-12">
+
+          <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6 fade-up">
+            <p class="lede">
+              As University of Florida students and members of the Gainesville community, POLIS UF
+              seeks to give back in meaningful and impactful ways that reflect our commitment to
+              public service, ethical leadership, education, and inclusive governance. Our
+              philanthropy efforts are designed to address real community needs while helping
+              students understand the role of service in building stronger institutions and more
+              equitable communities.
+            </p>
+            <blockquote class="pull-quote">
+              <p>POLIS UF's philanthropic work goes beyond traditional charitable drives. Our broader goal is to connect service with advocacy, accessibility, education, and public purpose.</p>
+            </blockquote>
+            <p>
+              POLIS UF's philanthropic work goes beyond traditional charitable drives. While we
+              value hands-on service and community donations, our broader goal is to connect service
+              with advocacy, accessibility, education, and public purpose. Through community
+              partnerships, civic engagement initiatives, immigrant rights programming, professional
+              clothing drives, policy proposals, and structured service requirements, we aim to
+              support both the Gainesville community and the students preparing to serve it.
+            </p>
+          </div>
+
+          <div class="w-full md:w-80 lg:w-96 shrink-0 fade-up" style="transition-delay: 150ms">
+            <Image
+              src={polisPlaceholder}
+              alt="Placeholder photo — POLIS UF philanthropy (to be replaced)"
+              width={400}
+              height={400}
+              class="w-full h-auto rounded-sm object-cover"
+              loading="lazy"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Focus areas card grid -->
+    <section id="focus-areas" data-section class="bg-white py-20 md:py-28 px-6">
+      <div class="max-w-6xl mx-auto">
+
+        <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center mb-14 fade-up">
+          Our Philanthropy Focus Areas
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {focusAreas.map((area, i) => (
+            <article
+              class={`border-t-4 border-gold p-8 flex flex-col gap-5 fade-up ${i % 2 === 0 ? 'bg-white' : 'bg-surface'}`}
+              style={`transition-delay: ${i * 70}ms`}
+            >
+              <div class="text-gold" aria-hidden="true" set:html={icons[i]} />
+              <h3 class="font-heading text-dark-blue text-xl leading-snug">{area.title}</h3>
+              <p class="font-heading text-dark-blue/75 text-base leading-relaxed">{area.description}</p>
+            </article>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Future initiatives -->
+    <section id="future-initiatives" data-section class="bg-light-blue py-20 md:py-28 px-6">
+      <div class="max-w-6xl mx-auto">
+
+        <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center mb-14 fade-up">
+          Future Initiatives
+        </h2>
+
+        <div class="flex flex-col md:flex-row-reverse items-start gap-12">
+
+          <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed fade-up">
+            <p>
+              As a founding chapter, POLIS UF is currently developing its first philanthropy and
+              advocacy initiatives. Future projects may include professional clothing drives, voter
+              registration and education events, immigrant rights programming, Gainesville nonprofit
+              partnerships, community service days, policy proposal projects, educational workshops,
+              and resource-building efforts for students entering public service fields.
+            </p>
+          </div>
+
+          <div class="w-full md:w-80 lg:w-96 shrink-0 fade-up" style="transition-delay: 150ms">
+            <Image
+              src={polisPlaceholder}
+              alt="Placeholder photo — POLIS UF future initiatives (to be replaced)"
+              width={400}
+              height={400}
+              class="w-full h-auto rounded-sm object-cover"
+              loading="lazy"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
+
+<script>
+  const sections = [...document.querySelectorAll('[data-section]')];
+  const navLinks = [...document.querySelectorAll('.section-nav-link')];
+  const visible = new Set();
+
+  function updateNav() {
+    const tops = [...visible].map((el) => ({
+      el,
+      top: (el as HTMLElement).getBoundingClientRect().top,
+    }));
+    const inView = tops.filter(({ top }) => top >= 0);
+    const candidate = inView.length
+      ? inView.reduce((a, b) => (a.top <= b.top ? a : b))
+      : tops.length
+      ? tops.reduce((a, b) => (a.top >= b.top ? a : b))
+      : null;
+
+    navLinks.forEach((l) => l.classList.remove('active'));
+    if (candidate) {
+      document
+        .querySelector(`.section-nav-link[href="#${(candidate.el as HTMLElement).id}"]`)
+        ?.classList.add('active');
+    }
+  }
+
+  const sectionObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        isIntersecting ? visible.add(target) : visible.delete(target);
+      });
+      updateNav();
+    },
+    { rootMargin: '0px 0px -20% 0px', threshold: 0 }
+  );
+
+  sections.forEach((s) => sectionObs.observe(s));
+</script>

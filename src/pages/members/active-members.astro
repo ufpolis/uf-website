@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import polisPlaceholder from '../../assets/polis_placeholder.jpg';
+import site from '../../data/site.json';
+---
+
+<Layout
+  title="Active Members — POLIS UF"
+  description="POLIS UF is recruiting its Founding Class. Join us and help shape the chapter from the ground up."
+>
+  <main id="main-content">
+
+    <!-- Page header -->
+    <section class="bg-dark-blue py-20 md:py-28 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="font-heading text-gold text-sm uppercase tracking-widest mb-4">Membership</p>
+        <h1 class="font-heading text-white text-5xl md:text-6xl leading-tight mb-6">
+          Active Members
+        </h1>
+        <p class="font-heading text-white/80 text-xl max-w-2xl mx-auto leading-relaxed">
+          Join Our Founding Class.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- Founding class section -->
+    <section class="bg-white py-20 md:py-28 px-6">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+          <!-- Text -->
+          <div class="fade-up">
+            <h2 class="font-heading text-dark-blue text-3xl md:text-4xl mb-6">
+              Be Part of Something New
+            </h2>
+            <p class="font-heading text-dark-blue text-lg leading-relaxed mb-6">
+              POLIS UF is currently recruiting its first founding class of active members. Founding
+              members will help shape the chapter's culture, programming, traditions, and
+              professional network from the ground up.
+            </p>
+            <p class="font-heading text-dark-blue text-lg leading-relaxed mb-10">
+              As a Founding Fellow, you will not only join POLIS UF. You will help build the
+              community, traditions, and long-term impact of this chapter at the University of
+              Florida.
+            </p>
+            <a
+              href={site.applyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-gold text-dark-blue font-heading text-base
+                     font-semibold px-8 py-4 rounded-sm hover:brightness-110 transition-all
+                     duration-200 shadow-md"
+              aria-label="Apply to join POLIS UF (opens in new tab)"
+            >
+              Apply to Join POLIS UF
+              <span class="sr-only">(opens in new tab)</span>
+            </a>
+          </div>
+
+          <!-- Photo placeholder -->
+          <div class="fade-up" style="transition-delay: 150ms">
+            <div class="rounded-sm overflow-hidden border border-gray shadow-lg">
+              <Image
+                src={polisPlaceholder}
+                alt="POLIS UF active members — photo coming soon"
+                width={600}
+                height={600}
+                class="w-full h-auto object-cover opacity-70"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Member profiles placeholder -->
+    <section class="bg-light-blue py-20 md:py-28 px-6">
+      <div class="max-w-4xl mx-auto text-center fade-up">
+        <h2 class="font-heading text-dark-blue text-3xl md:text-4xl mb-6">
+          Founding Class Profiles
+        </h2>
+        <p class="font-heading text-dark-blue text-lg leading-relaxed">
+          Active member profiles will appear here once the Founding Class is confirmed.
+        </p>
+      </div>
+    </section>
+
+  </main>
+</Layout>

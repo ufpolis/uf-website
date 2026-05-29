@@ -1,0 +1,374 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import landingImage from '../assets/landing_image.jpg';
+import capitalZoomout from '../assets/capital_zoomout.jpg';
+import capitalSunset from '../assets/capital_sunset.jpg';
+import senatePainting from '../assets/senate_painting.jpg';
+
+const APPLY_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSe1g7HSRXR4G9rdsw4vzKg1itcRVdx518P4UVzI7e3AxmbtOg/viewform';
+const INSTAGRAM_URL = 'https://www.instagram.com/ufpolis';
+const EXEC_BOARD_URL = '/members/executive-board';
+---
+
+<Layout title="POLIS UF — Pi Lambda Sigma at the University of Florida">
+  <main id="main-content">
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+
+      <div class="absolute inset-0 z-0">
+        <Image
+          src={landingImage}
+          alt=""
+          class="w-full h-full object-cover"
+          width={1600}
+          height={900}
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="absolute inset-0 bg-dark-blue/65"></div>
+      </div>
+
+      <div class="relative z-10 text-center px-6 max-w-4xl mx-auto py-24">
+
+        <h1 class="font-heading text-white text-4xl md:text-6xl lg:text-7xl leading-tight mb-6">
+          Pi Lambda Sigma at the University of Florida
+        </h1>
+
+        <p class="font-heading text-white/90 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed mb-8">
+          The University of Florida's foremost pre-professional government society for
+          students interested in government, policy, and public service.
+        </p>
+
+        <div class="mb-10">
+          <span class="inline-block border border-gold text-gold font-heading text-sm uppercase tracking-wide px-5 py-2 rounded-sm">
+            Now Recruiting Our Founding Class
+          </span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
+
+          <a
+            href={APPLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full sm:w-auto min-h-[44px] flex items-center justify-center bg-gold text-dark-blue font-heading font-semibold text-base px-7 py-3 rounded-sm hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-dark-blue transition"
+          >
+            Apply Now
+            <span class="sr-only">(opens in new tab)</span>
+          </a>
+
+          <a
+            href={EXEC_BOARD_URL}
+            class="w-full sm:w-auto min-h-[44px] flex items-center justify-center border border-white text-white font-heading font-semibold text-base px-7 py-3 rounded-sm hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-dark-blue transition"
+          >
+            Meet the Executive Board
+          </a>
+
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full sm:w-auto min-h-[44px] flex items-center justify-center border border-white text-white font-heading font-semibold text-base px-7 py-3 rounded-sm hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-dark-blue transition"
+          >
+            Follow Us on Instagram
+            <span class="sr-only">(opens in new tab)</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         SECTION SUB-NAV — sticky below header, lg+ only
+         ============================================================ -->
+    <nav
+      aria-label="Page sections"
+      class="hidden lg:block sticky top-14 md:top-16 z-40 bg-white border-b border-gray/60"
+    >
+      <div class="max-w-7xl mx-auto px-6 flex gap-8 py-3">
+        <a href="#who-we-are" class="section-nav-link font-heading text-sm whitespace-nowrap">Who We Are</a>
+        <a href="#why-polis"  class="section-nav-link font-heading text-sm whitespace-nowrap">Why POLIS</a>
+        <a href="#mission"    class="section-nav-link font-heading text-sm whitespace-nowrap">Mission</a>
+      </div>
+    </nav>
+
+
+    <!-- ============================================================
+         WHO WE ARE
+         ============================================================ -->
+    <section id="who-we-are" data-section class="bg-white py-20 md:py-28 px-6">
+      <div class="max-w-6xl mx-auto">
+
+        <h2 class="font-heading text-dark-blue text-4xl md:text-5xl mb-12 text-center">
+          Who We Are
+        </h2>
+
+        <div class="flex flex-col md:flex-row items-start gap-12">
+
+          <!-- Text -->
+          <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6">
+            <p class="lede">
+              Pi Lambda Sigma, also known as POLIS, was founded in 2016 by Cornell alumnus
+              Sam Barnett as a pre-professional government society for students interested in
+              public service, government, policy, and legal studies. Since its founding, POLIS
+              has grown into a network of chapters at universities including the University of
+              Pennsylvania, Columbia University, Dartmouth College, and now the University of
+              Florida.
+            </p>
+            <p>
+              POLIS UF brings together students from all majors who are passionate about public
+              service and the institutions that shape society. Our mission is to create a strong
+              support system for students pursuing careers in public service, politics, legal
+              studies, government, policy, advocacy, and civic leadership while providing
+              professional development opportunities, mentorship, and hands-on experience.
+            </p>
+            <p>
+              Our fellows have diverse interests ranging from legal studies and foreign policy to
+              economics, education, public health, immigrant rights, climate justice, and community
+              advocacy. Through this diversity of interests and experiences, POLIS UF aims to make
+              public service more accessible, inclusive, and representative while building a network
+              of future leaders committed to ethical public service leadership.
+            </p>
+          </div>
+
+          <!-- Photo -->
+          <div class="w-full md:w-80 lg:w-96 shrink-0">
+            <Image
+              src={capitalZoomout}
+              alt="The U.S. Capitol building"
+              width={800}
+              height={533}
+              class="w-full h-auto rounded-sm object-cover"
+              loading="lazy"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         WHY POLIS?
+         ============================================================ -->
+    <section id="why-polis" data-section class="bg-light-blue py-20 md:py-28 px-6">
+      <div class="max-w-6xl mx-auto">
+
+        <h2 class="font-heading text-dark-blue text-4xl md:text-5xl mb-12 text-center">
+          Why POLIS?
+        </h2>
+
+        <div class="flex flex-col md:flex-row-reverse items-start gap-12">
+
+          <!-- Text -->
+          <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6">
+            <p class="lede">
+              POLIS UF is more than a professional society. It is a community for students who
+              want to lead, serve, and shape the future of public leadership. Through professional
+              development, mentorship, advocacy, service, and networking opportunities, POLIS UF
+              prepares students to pursue careers in public service, politics, legal studies,
+              government, policy, and civic leadership.
+            </p>
+            <blockquote class="pull-quote">
+              <p>POLIS UF is more than a professional society. It is a community for students who want to lead, serve, and shape the future of public leadership.</p>
+            </blockquote>
+            <p>
+              As a Founding Fellow, you will not only join POLIS UF. You will help build its
+              culture, traditions, programming, and long-term impact at the University of Florida.
+            </p>
+          </div>
+
+          <!-- Photo -->
+          <div class="w-full md:w-80 lg:w-96 shrink-0">
+            <Image
+              src={capitalSunset}
+              alt="The U.S. Capitol at sunset"
+              width={800}
+              height={533}
+              class="w-full h-auto rounded-sm object-cover"
+              loading="lazy"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         MISSION
+         ============================================================ -->
+    <section id="mission" data-section class="bg-white py-20 md:py-28 px-6">
+      <div class="max-w-4xl mx-auto">
+
+        <h2 class="font-heading text-dark-blue text-4xl md:text-5xl mb-10 text-center">
+          Mission
+        </h2>
+
+        <!-- Photo, centered above text -->
+        <div class="flex justify-center mb-12">
+          <Image
+            src={senatePainting}
+            alt="Senate chamber painting"
+            width={800}
+            height={533}
+            class="w-full max-w-lg h-auto rounded-sm object-cover"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="prose-measure font-heading text-dark-blue text-lg leading-relaxed space-y-6 mb-6">
+          <p class="lede">
+            Our mission is to build a strong community of students pursuing careers in public
+            service, politics, law, government, and policy while providing professional
+            development opportunities, mentorship, and hands-on experience.
+          </p>
+          <p>
+            POLIS UF is committed to preparing students for careers in law, government, policy,
+            public service, and civic leadership while making those fields more accessible,
+            inclusive, and representative. As a nonpartisan pre-professional society, we bring
+            together students from all majors who are passionate about public service, ethical
+            leadership, and the institutions that shape society.
+          </p>
+          <p>
+            Our work goes beyond traditional professional development. POLIS UF aims to build a
+            support network for future leaders years before they enter the field, creating a
+            community where students can develop the skills, confidence, and connections needed to
+            pursue careers in public service and beyond.
+          </p>
+          <blockquote class="pull-quote">
+            <p>Our work goes beyond traditional professional development. POLIS UF aims to build a support network for future leaders years before they enter the field.</p>
+          </blockquote>
+        </div>
+
+        <h3 class="font-heading text-dark-blue text-2xl md:text-3xl mb-8 text-center">
+          Our mission is centered on three key goals
+        </h3>
+
+      </div>
+
+      <!-- Three goal cards — wider container, always-visible static grid -->
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3">
+
+          <!-- Card 1 — white -->
+          <article class="bg-white border-t-4 border-gold p-8 flex flex-col gap-5 fade-up">
+            <div class="text-gold" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <h4 class="font-heading text-dark-blue text-xl leading-snug">
+              Public Service &amp; Ethical Leadership
+            </h4>
+            <p class="font-heading text-dark-blue/75 text-base leading-relaxed">
+              We aim to cultivate future leaders who are committed to serving their communities
+              with integrity, responsibility, and purpose. Through speaker events, policy
+              discussions, advocacy projects, and hands-on public service initiatives, POLIS UF
+              encourages students to think critically about how leadership can be used to create
+              stronger institutions and better policies.
+            </p>
+          </article>
+
+          <!-- Card 2 — surface -->
+          <article class="bg-surface border-t-4 border-gold p-8 flex flex-col gap-5 fade-up" style="transition-delay: 80ms">
+            <div class="text-gold" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <h4 class="font-heading text-dark-blue text-xl leading-snug">
+              Inclusive Governance &amp; Accessibility
+            </h4>
+            <p class="font-heading text-dark-blue/75 text-base leading-relaxed">
+              POLIS UF is committed to making careers in government, law, policy, and public
+              service more accessible to students from all backgrounds. We recognize that many
+              professional spaces have systemic barriers, including unpaid or low-paid
+              internships, limited mentorship, lack of access to professional resources, and
+              unequal exposure to networking opportunities. Our goal is to help reduce those
+              barriers by connecting students with guidance, resources, and support.
+            </p>
+          </article>
+
+          <!-- Card 3 — white -->
+          <article class="bg-white border-t-4 border-gold p-8 flex flex-col gap-5 fade-up" style="transition-delay: 160ms">
+            <div class="text-gold" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            </div>
+            <h4 class="font-heading text-dark-blue text-xl leading-snug">
+              Professional Development with Public Purpose
+            </h4>
+            <p class="font-heading text-dark-blue/75 text-base leading-relaxed">
+              Through workshops, alumni and guest speaker panels, recruitment resources,
+              networking opportunities, and mentorship, POLIS UF helps students build practical
+              career skills while staying grounded in a larger commitment to public purpose. Our
+              programming focuses on resume building, interview preparation, elevator pitches,
+              networking, internship searches, and professional confidence.
+            </p>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <p class="font-heading text-dark-blue text-lg leading-relaxed mt-10 prose-measure">
+          As a founding chapter, POLIS UF seeks to build more than a professional organization.
+          We are building a community of students who care about service, representation, and
+          the future of public leadership.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+</Layout>
+
+<script>
+  // Section sub-nav: track all intersecting sections; highlight the topmost in view
+  const sections = [...document.querySelectorAll('[data-section]')];
+  const navLinks = [...document.querySelectorAll('.section-nav-link')];
+  const visible = new Set();
+
+  function updateNav() {
+    const tops = [...visible].map((el) => ({
+      el,
+      top: (el as HTMLElement).getBoundingClientRect().top,
+    }));
+    const inView = tops.filter(({ top }) => top >= 0);
+    const candidate = inView.length
+      ? inView.reduce((a, b) => (a.top <= b.top ? a : b))
+      : tops.length
+      ? tops.reduce((a, b) => (a.top >= b.top ? a : b))
+      : null;
+
+    navLinks.forEach((l) => l.classList.remove('active'));
+    if (candidate) {
+      document
+        .querySelector(`.section-nav-link[href="#${(candidate.el as HTMLElement).id}"]`)
+        ?.classList.add('active');
+    }
+  }
+
+  const sectionObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        isIntersecting ? visible.add(target) : visible.delete(target);
+      });
+      updateNav();
+    },
+    { rootMargin: '0px 0px -20% 0px', threshold: 0 }
+  );
+
+  sections.forEach((s) => sectionObs.observe(s));
+</script>

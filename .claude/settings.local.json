@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(Get-ChildItem -Recurse \"C:\\\\Users\\\\luket\\\\OneDrive\\\\Documents\\\\Side Quests\\\\UFPOLIS\\\\ufpolis-temp\")",
+      "Bash(Select-Object FullName)",
+      "Bash(cp 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/ufpolis-temp/astro.config.mjs' 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/UFPOLIS/')",
+      "Bash(cp 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/ufpolis-temp/tsconfig.json' 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/UFPOLIS/')",
+      "Bash(cp 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/ufpolis-temp/package.json' 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/UFPOLIS/')",
+      "Bash(cp -r 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/ufpolis-temp/public' 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/UFPOLIS/')",
+      "Bash(cp -r 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/ufpolis-temp/src' 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/UFPOLIS/')",
+      "Bash(mkdir -p 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/UFPOLIS/src/assets')",
+      "Bash(cp 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/UFPOLIS/polis_main.png' 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/UFPOLIS/src/assets/')",
+      "Bash(cp 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/UFPOLIS/polis_square.png' 'C:/Users/luket/OneDrive/Documents/Side Quests/UFPOLIS/UFPOLIS/src/assets/')",
+      "Bash(npm install *)",
+      "Bash(npx astro *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\luket\\\\OneDrive\\\\Documents\\\\Side Quests\\\\UFPOLIS\\\\UFPOLIS\" -File)",
+      "Bash(Select-Object Name)",
+      "Bash(npm run *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\luket\\\\OneDrive\\\\Documents\\\\Side Quests\\\\UFPOLIS\\\\UFPOLIS\\\\src\\\\assets\" -File)",
+      "Bash(Select-Object -ExpandProperty Name)",
+      "PowerShell(Copy-Item *)"
+    ]
+  }
+}
