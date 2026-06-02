@@ -1,12 +1,9 @@
 {
-  "_instructions": "HOW TO EDIT THIS FILE — This file controls all global links and contact info on the site. To change a link or email address, edit the value to the right of the colon. Save the file. The site will rebuild automatically when deployed. Do not remove any keys — only change the values.",
-
   "instagram": "https://www.instagram.com/ufpolis",
   "instagramHandle": "@ufpolis",
   "linkedin": "https://www.linkedin.com/company/university-of-florida-polis/",
   "email": "ufpolis@gmail.com",
   "applyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSe1g7HSRXR4G9rdsw4vzKg1itcRVdx518P4UVzI7e3AxmbtOg/viewform",
-
-  "_siteUrl_note": "Update this value when the final domain is confirmed. Used for canonical URLs, OG image, JSON-LD, sitemap, and robots.txt.",
+  "execBoardUrl": "/members/executive-board",
   "siteUrl": "https://ufpolis.com"
 }

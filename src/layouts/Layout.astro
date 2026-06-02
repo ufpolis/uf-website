@@ -79,6 +79,20 @@ const ogImageUrl  = `${siteUrl}${ogImage}`;
 
     <script is:inline>if (!localStorage.getItem('bannerDismissed')) document.documentElement.classList.add('banner-show');</script>
     <ClientRouter />
+
+    <!-- Netlify Identity widget: required for CMS login redirect to work from any page -->
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', function (user) {
+          if (!user) {
+            window.netlifyIdentity.on('login', function () {
+              document.location.href = '/admin/';
+            });
+          }
+        });
+      }
+    </script>
   </head>
 
   <body>

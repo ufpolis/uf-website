@@ -3,8 +3,8 @@ import eventsData from '../../data/events.json';
 
 // Only generate .ics files for events that have confirmed dates.
 // When startISO is null the board hasn't set a date yet — no file is generated.
-const scheduledEvents = (eventsData as any[]).filter(
-  (e) => !e._instructions && e.startISO && e.slug
+const scheduledEvents = (eventsData.events as any[]).filter(
+  (e) => e.startISO && e.slug
 );
 
 export const getStaticPaths: GetStaticPaths = () =>

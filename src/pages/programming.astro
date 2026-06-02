@@ -11,8 +11,7 @@ function fmtGCal(iso: string) {
   return iso.replace(/[-:]/g, '').split('.')[0];
 }
 
-const events = (eventsData as any[])
-  .filter((e) => !e._instructions)
+const events = (eventsData.events as any[])
   .map((e) => {
     if (!e.startISO) return { ...e, gcalUrl: null };
     const params = new URLSearchParams({

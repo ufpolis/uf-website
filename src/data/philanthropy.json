@@ -1,0 +1,36 @@
+{
+  "intro": {
+    "body": "As University of Florida students and members of the Gainesville community, POLIS seeks to give back in meaningful and impactful ways that reflect our commitment to public service, ethical leadership, education, and inclusive governance. Our philanthropy efforts are designed to address real community needs while helping students understand the role of service in building stronger institutions and more equitable communities."
+  },
+  "introPullQuote": "POLIS's philanthropic work goes beyond traditional charitable drives. Our broader goal is to connect service with advocacy, accessibility, education, and public purpose.",
+  "focusAreas": [
+    {
+      "title": "Community Engagement",
+      "description": "Partnering with local organizations, schools, nonprofits, and public service groups to support Gainesville residents through meaningful service opportunities."
+    },
+    {
+      "title": "Education and Resource Access",
+      "description": "Creating programming that expands access to educational, professional, and civic resources for students and community members. This may include workshops, resource guides, mentorship opportunities, and initiatives that help reduce barriers to professional and public service careers."
+    },
+    {
+      "title": "Immigrant Rights and Inclusive Advocacy",
+      "description": "Developing programming and partnerships that support immigrant communities, highlight immigrant rights issues, and encourage students to engage with the legal, policy, and human impact of immigration-related advocacy."
+    },
+    {
+      "title": "Policy Proposals and Civic Engagement",
+      "description": "Encouraging members to research community issues, develop policy proposals, and participate in civic engagement projects that promote informed, responsible, and solution-oriented public service."
+    },
+    {
+      "title": "Access to Professional Opportunity",
+      "description": "Organizing initiatives such as professional clothing drives, career-readiness workshops, networking support, and mentorship opportunities to help reduce barriers for students pursuing careers in law, government, policy, and public service."
+    },
+    {
+      "title": "Structured Service Requirements",
+      "description": "Requiring members to participate in service opportunities each semester to ensure that POLIS's commitment to public service is active, consistent, and connected to the Gainesville community."
+    }
+  ],
+  "futureInitiatives": {
+    "heading": "Future Initiatives",
+    "body": "As a founding chapter, POLIS is currently developing its first philanthropy and advocacy initiatives. Future projects may include professional clothing drives, voter registration and education events, immigrant rights programming, Gainesville nonprofit partnerships, community service days, policy proposal projects, educational workshops, and resource-building efforts for students entering public service fields."
+  }
+}

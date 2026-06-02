@@ -1,24 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { Image } from 'astro:assets';
 import polisPlaceholder from '../../assets/polis_placeholder.jpg';
+import { Image } from 'astro:assets';
 
 // To add or remove board members, edit src/data/executiveBoard.json — not this file.
 import boardData from '../../data/executiveBoard.json';
-const members = (boardData as any[]).filter((m) => !m._instructions);
-
-// Load all headshots from src/assets/headshots/ and build a filename-stem → ImageMetadata map.
-// To add a new headshot: drop the file in src/assets/headshots/ and set "headshot" in
-// executiveBoard.json to the filename without extension (e.g. "first-last").
-const headshotModules = import.meta.glob<{ default: ImageMetadata }>(
-  '../../assets/headshots/*.{jpg,jpeg,JPG,JPEG,png,PNG,webp}',
-  { eager: true }
-);
-const headshotMap: Record<string, ImageMetadata> = {};
-for (const [path, mod] of Object.entries(headshotModules)) {
-  const stem = path.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
-  headshotMap[stem] = mod.default;
-}
+const members = boardData.members;
 ---
 
 <Layout
@@ -55,13 +42,13 @@ for (const [path, mod] of Object.entries(headshotModules)) {
             >
               <!-- Headshot -->
               <div class="w-full aspect-square overflow-hidden bg-gray/20 shrink-0">
-                {member.headshot && headshotMap[member.headshot]
+                {member.headshot
                   ? (
-                    <Image
-                      src={headshotMap[member.headshot]}
+                    <img
+                      src={member.headshot}
                       alt={`${member.name} headshot`}
-                      width={300}
-                      height={300}
+                      width="300"
+                      height="300"
                       class="w-full h-full object-cover"
                       loading="lazy"
                     />

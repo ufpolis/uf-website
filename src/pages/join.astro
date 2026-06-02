@@ -3,40 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import polisPlaceholder from '../assets/polis_placeholder.jpg';
 import site from '../data/site.json';
+import { toHtml } from '../utils/markdown';
 
-const faqs = [
-  {
-    q: 'Do I have to be a political science or pre-law student to apply?',
-    a: 'No. POLIS is open to students from all majors who are interested in public service, politics, law, government, policy, advocacy, civic engagement, or related fields.',
-  },
-  {
-    q: 'What is a POLIS Fellow?',
-    a: 'A POLIS Fellow is an active member of Pi Lambda Sigma. Fellows participate in professional development, service initiatives, speaker events, mentorship, advocacy projects, and chapter programming.',
-  },
-  {
-    q: 'What does it mean to join the Founding Class?',
-    a: 'Joining the Founding Class means becoming part of POLIS\'s first active member class. Founding Fellows will help shape the chapter\'s culture, traditions, programming, and long-term impact at the University of Florida.',
-  },
-  {
-    q: 'Is POLIS partisan?',
-    a: 'No. POLIS is a nonpartisan pre-professional society focused on public service, ethical leadership, professional development, and civic engagement.',
-  },
-  {
-    q: 'Do I need prior experience in law, government, or public service?',
-    a: 'No. We value passion, curiosity, authenticity, professionalism, and a willingness to grow.',
-  },
-  {
-    q: 'Who can I contact with questions?',
-    a: 'If you have any questions about recruitment, applications, or membership, please reach out to us through Instagram, LinkedIn, or email.',
-  },
-];
-
-const timelineSteps = [
-  { label: 'Information Session', date: '[Date TBD]' },
-  { label: 'Application Opens', date: '[Date TBD]' },
-  { label: 'Interview Rounds', date: '[Date TBD]' },
-  { label: 'Decisions Released', date: '[Date TBD]' },
-];
+// To edit recruitment copy, FAQs, or timeline, edit src/data/join.json — not this file.
+import joinData from '../data/join.json';
 ---
 
 <Layout
@@ -94,24 +64,9 @@ const timelineSteps = [
         <div class="flex flex-col md:flex-row items-start gap-12">
 
           <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6 fade-up">
-            <p class="lede">
-              For students interested in becoming a POLIS Fellow, recruitment will take place at the
-              beginning of each Fall and Spring semester. Our recruitment process is designed to help
-              us get to know applicants beyond their resumes and better understand their interests in
-              public service, politics, law, government, policy, advocacy, and civic leadership.
-            </p>
-            <p>
-              The recruitment process will include an information session, coffee chats, an online
-              application, interview rounds, and invite-only recruitment events designed to help
-              applicants learn more about POLIS and the community we are building.
-            </p>
-            <p>
-              As a founding chapter, POLIS is looking for students who are passionate, authentic,
-              ambitious, and committed to growing as future public service leaders. Students from all
-              majors and backgrounds are encouraged to apply.
-            </p>
+            <div class="lede" set:html={toHtml(joinData.process.body)} />
             <blockquote class="pull-quote">
-              <p>As a founding chapter, POLIS is looking for students who are passionate, authentic, ambitious, and committed to growing as future public service leaders.</p>
+              <p>{joinData.processPullQuote}</p>
             </blockquote>
           </div>
 
@@ -147,7 +102,7 @@ const timelineSteps = [
           <div class="hidden md:block absolute top-5 left-0 right-0 h-px bg-gold" aria-hidden="true"></div>
 
           <ol class="grid grid-cols-1 md:grid-cols-4 gap-8 list-none p-0 m-0" role="list">
-            {timelineSteps.map((step, i) => (
+            {joinData.timeline.map((step: any, i: number) => (
               <li class="flex flex-col items-center text-center gap-3" style={`transition-delay: ${i * 100}ms`}>
                 <div class="w-10 h-10 rounded-full bg-gold border-4 border-white shadow flex items-center justify-center shrink-0 z-10">
                   <span class="font-heading text-dark-blue text-sm font-semibold">{i + 1}</span>
@@ -240,7 +195,7 @@ const timelineSteps = [
         </h2>
 
         <div class="divide-y divide-white/20 fade-up">
-          {faqs.map((faq) => (
+          {joinData.faqs.map((faq: any) => (
             <details class="group py-1">
               <summary class="font-heading text-white text-lg py-4 cursor-pointer list-none flex justify-between items-center gap-4 hover:text-gold transition-colors">
                 {faq.q}
@@ -257,9 +212,8 @@ const timelineSteps = [
               </summary>
               <div class="grid grid-rows-[0fr] group-open:grid-rows-[1fr] transition-all duration-300 ease-in-out">
                 <div class="overflow-hidden">
-                  <p class="font-heading text-white/75 text-base leading-relaxed pb-5 pt-1">
-                    {faq.a}
-                  </p>
+                  <div class="font-heading text-white/75 text-base leading-relaxed pb-5 pt-1"
+                    set:html={toHtml(faq.a)} />
                 </div>
               </div>
             </details>

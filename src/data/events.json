@@ -1,32 +1,34 @@
-[
-  {
-    "_instructions": "HOW TO EDIT THIS FILE — Each entry is one event card on the Programming page. To ADD an event: copy one block from { to }, paste after the last }, add a comma between them, and fill in all fields. SLUG: a short URL-safe name used in the calendar download link — use lowercase letters and hyphens only, and never change it once the event is live. DATE: the human-readable display date (e.g. 'September 12, 2025'). STARTISO / ENDISO: machine-readable datetime in the format 'YYYY-MM-DDTHH:MM:SS' (24-hour, local time). Set both to null if the date is not yet confirmed — the calendar buttons will be hidden until a date is set. To REMOVE an event: delete its entire block and the comma before it."
-  },
-  {
-    "name": "Law School Admissions Panel",
-    "slug": "law-school-admissions-panel",
-    "description": "A panel featuring current law students and recent graduates sharing their experience with the law school application process, LSAT preparation, personal statements, and choosing the right school. Open to all POLIS fellows and prospective members.",
-    "date": "September 10, 2026",
-    "startISO": "2026-09-10T18:00:00",
-    "endISO": "2026-09-10T20:00:00",
-    "location": "Pugh Hall, Room 170 — University of Florida"
-  },
-  {
-    "name": "Resume and LinkedIn Workshop",
-    "slug": "resume-linkedin-workshop",
-    "description": "An interactive workshop on building a strong resume and LinkedIn profile for careers in public service, law, government, and policy. Fellows will receive personalized feedback and leave with a polished one-page resume.",
-    "date": "September 24, 2026",
-    "startISO": "2026-09-24T17:00:00",
-    "endISO": "2026-09-24T19:00:00",
-    "location": "Reitz Union, Room 2335 — University of Florida"
-  },
-  {
-    "name": "Public Service Networking Night",
-    "slug": "public-service-networking-night",
-    "description": "An evening of structured networking with professionals working in public service, government, law, and policy. Bring business cards, practice your elevator pitch, and connect with leaders in the fields you are pursuing.",
-    "date": "October 8, 2026",
-    "startISO": "2026-10-08T18:00:00",
-    "endISO": "2026-10-08T20:30:00",
-    "location": "Smathers Library, East Reading Room — University of Florida"
-  }
-]
+{
+  "events": [
+    {
+      "name": "Law School Admissions Panel",
+      "slug": "law-school-admissions-panel",
+      "description": "A panel featuring current law students and recent graduates sharing their experience with the law school application process, LSAT preparation, personal statements, and choosing the right school. Open to all POLIS fellows and prospective members.",
+      "date": "September 10, 2026",
+      "startISO": "2026-09-10T18:00:00",
+      "endISO": "2026-09-10T20:00:00",
+      "location": "Pugh Hall, Room 170 — University of Florida",
+      "image": null
+    },
+    {
+      "name": "Resume and LinkedIn Workshop",
+      "slug": "resume-linkedin-workshop",
+      "description": "An interactive workshop on building a strong resume and LinkedIn profile for careers in public service, law, government, and policy. Fellows will receive personalized feedback and leave with a polished one-page resume.",
+      "date": "September 24, 2026",
+      "startISO": "2026-09-24T17:00:00",
+      "endISO": "2026-09-24T19:00:00",
+      "location": "Reitz Union, Room 2335 — University of Florida",
+      "image": null
+    },
+    {
+      "name": "Public Service Networking Night",
+      "slug": "public-service-networking-night",
+      "description": "An evening of structured networking with professionals working in public service, government, law, and policy. Bring business cards, practice your elevator pitch, and connect with leaders in the fields you are pursuing.",
+      "date": "October 8, 2026",
+      "startISO": "2026-10-08T18:00:00",
+      "endISO": "2026-10-08T20:30:00",
+      "location": "Smathers Library, East Reading Room — University of Florida",
+      "image": null
+    }
+  ]
+}

@@ -7,8 +7,18 @@ import ufImage from '../assets/uf_image.jpg';
 import senatePainting from '../assets/senate_painting.jpg';
 import polisMain from '../assets/polis_stripped.png';
 import site from '../data/site.json';
+import home from '../data/home.json';
+import { toHtml } from '../utils/markdown';
 
-const EXEC_BOARD_URL = '/members/executive-board';
+// Icons for the three mission goal flip cards (indexed to match home.mission.goals order)
+const goalIcons = [
+  // Card 1 — Public Service & Ethical Leadership: star
+  `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  // Card 2 — Inclusive Governance & Accessibility: globe
+  `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+  // Card 3 — Professional Development with Public Purpose: mortarboard
+  `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`,
+];
 ---
 
 <Layout title="POLIS UF — Pi Lambda Sigma at the University of Florida">
@@ -49,8 +59,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
         </h1>
 
         <p class="font-heading text-white/90 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed mb-8">
-          The University of Florida's foremost pre-professional government society for
-          students interested in government, policy, and public service.
+          {home.hero.tagline}
         </p>
 
         <div class="flex flex-col items-center gap-3">
@@ -112,30 +121,8 @@ const EXEC_BOARD_URL = '/members/executive-board';
         <div class="flex flex-col md:flex-row items-start gap-12">
 
           <!-- Text -->
-          <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6">
-            <p class="lede">
-              Pi Lambda Sigma, also known as POLIS, was founded in 2016 by Cornell alumnus
-              Sam Barnett as a pre-professional government society for students interested in
-              public service, government, policy, and legal studies. Since its founding, POLIS
-              has grown into a network of chapters at universities including the University of
-              Pennsylvania, Columbia University, Dartmouth College, and now the University of
-              Florida.
-            </p>
-            <p>
-              POLIS brings together students from all majors who are passionate about public
-              service and the institutions that shape society. Our mission is to create a strong
-              support system for students pursuing careers in public service, politics, legal
-              studies, government, policy, advocacy, and civic leadership while providing
-              professional development opportunities, mentorship, and hands-on experience.
-            </p>
-            <p>
-              Our fellows have diverse interests ranging from legal studies and foreign policy to
-              economics, education, public health, immigrant rights, climate justice, and community
-              advocacy. Through this diversity of interests and experiences, POLIS aims to make
-              public service more accessible, inclusive, and representative while building a network
-              of future leaders committed to ethical public service leadership.
-            </p>
-          </div>
+          <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6"
+            set:html={toHtml(home.whoWeAre.body)} />
 
           <!-- Photo + CTA -->
           <div class="w-full md:w-80 lg:w-96 shrink-0 flex flex-col gap-4">
@@ -148,7 +135,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
               loading="lazy"
             />
             <a
-              href={EXEC_BOARD_URL}
+              href={site.execBoardUrl}
               data-magnetic
               class="self-center min-h-[44px] inline-flex items-center justify-center border border-dark-blue text-dark-blue font-heading font-semibold text-base px-7 py-3 rounded-sm hover:bg-dark-blue/10 focus:outline-none focus:ring-2 focus:ring-dark-blue focus:ring-offset-2 transition"
             >
@@ -177,18 +164,10 @@ const EXEC_BOARD_URL = '/members/executive-board';
 
           <!-- Text -->
           <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6">
-            <p class="lede">
-              Through professional development, mentorship, advocacy, service, and networking
-              opportunities, POLIS prepares students to pursue careers in public service, politics,
-              legal studies, government, policy, and civic leadership.
-            </p>
+            <div set:html={toHtml(home.whyPolis.body)} />
             <blockquote class="pull-quote">
-              <p>POLIS is more than just a professional society. It is a community for students who want to lead, serve, and shape the future of public leadership.</p>
+              <p>{home.whyPolis.pullQuote}</p>
             </blockquote>
-            <p>
-              As a Founding Fellow, you will help build its culture, traditions, programming, and
-              long-term impact at the University of Florida.
-            </p>
           </div>
 
           <!-- Photo + CTA -->
@@ -243,20 +222,9 @@ const EXEC_BOARD_URL = '/members/executive-board';
         </div>
 
         <div class="prose-measure font-heading text-dark-blue text-lg leading-relaxed space-y-6 mb-6">
-          <p class="lede">
-            Our mission is to build a strong community of students pursuing careers in public
-            service, politics, law, government, and policy while providing professional
-            development opportunities, mentorship, and hands-on experience.
-          </p>
-          <p>
-            POLIS is committed to preparing students for careers in law, government, policy,
-            public service, and civic leadership while making those fields more accessible,
-            inclusive, and representative. As a nonpartisan pre-professional society, we bring
-            together students from all majors who are passionate about public service, ethical
-            leadership, and the institutions that shape society.
-          </p>
+          <div set:html={toHtml(home.mission.body)} />
           <blockquote class="pull-quote">
-            <p>Our work goes beyond traditional professional development. POLIS aims to build a support network for future leaders years before they enter the field.</p>
+            <p>{home.mission.pullQuote}</p>
           </blockquote>
         </div>
 
@@ -270,135 +238,38 @@ const EXEC_BOARD_URL = '/members/executive-board';
       <div class="max-w-5xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-icon-grid>
 
-          <!-- Card 1 -->
-          <div class="flip-card-wrapper fade-up">
-          <button
-            type="button"
-            class="flip-card"
-            aria-pressed="false"
-            aria-label="Public Service and Ethical Leadership, activate to read more"
-          >
-            <div class="flip-inner">
-              <div class="flip-front">
-                <div class="text-gold" aria-hidden="true" data-draw-icon>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                  </svg>
+          {home.mission.goals.map((goal: any, i: number) => (
+            <div class="flip-card-wrapper fade-up" style={`transition-delay: ${i * 80}ms`}>
+            <button
+              type="button"
+              class="flip-card"
+              aria-pressed="false"
+              aria-label={`${goal.title}, activate to read more`}
+            >
+              <div class="flip-inner">
+                <div class="flip-front">
+                  <div class="text-gold" aria-hidden="true" data-draw-icon set:html={goalIcons[i]} />
+                  <h4 class="font-heading text-white text-xl leading-snug">
+                    {goal.title}
+                  </h4>
+                  <div class="flip-indicator" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                    </svg>
+                  </div>
                 </div>
-                <h4 class="font-heading text-white text-xl leading-snug">
-                  Public Service &amp; Ethical Leadership
-                </h4>
-                <div class="flip-indicator" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="flip-back" aria-hidden="true" inert>
-                <p class="font-heading text-white/85 text-base leading-relaxed">
-                  We aim to cultivate future leaders who are committed to serving their communities
-                  with integrity, responsibility, and purpose. Through speaker events, policy
-                  discussions, advocacy projects, and hands-on public service initiatives, POLIS
-                  encourages students to think critically about how leadership can be used to create
-                  stronger institutions and better policies.
-                </p>
-                <div class="flip-indicator" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
-                  </svg>
+                <div class="flip-back" aria-hidden="true" inert>
+                  <div class="font-heading text-white/85 text-base leading-relaxed" set:html={toHtml(goal.body)} />
+                  <div class="flip-indicator" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                    </svg>
+                  </div>
                 </div>
               </div>
+            </button>
             </div>
-          </button>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="flip-card-wrapper fade-up" style="transition-delay: 80ms">
-          <button
-            type="button"
-            class="flip-card"
-            aria-pressed="false"
-            aria-label="Inclusive Governance and Accessibility, activate to read more"
-          >
-            <div class="flip-inner">
-              <div class="flip-front">
-                <div class="text-gold" aria-hidden="true" data-draw-icon>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <line x1="2" y1="12" x2="22" y2="12"/>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                  </svg>
-                </div>
-                <h4 class="font-heading text-white text-xl leading-snug">
-                  Inclusive Governance &amp; Accessibility
-                </h4>
-                <div class="flip-indicator" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="flip-back" aria-hidden="true" inert>
-                <p class="font-heading text-white/85 text-base leading-relaxed">
-                  POLIS is committed to making careers in government, law, policy, and public
-                  service more accessible to students from all backgrounds. We recognize that many
-                  professional spaces have systemic barriers, including unpaid or low-paid
-                  internships, limited mentorship, lack of access to professional resources, and
-                  unequal exposure to networking opportunities. Our goal is to help reduce those
-                  barriers by connecting students with guidance, resources, and support.
-                </p>
-                <div class="flip-indicator" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </button>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="flip-card-wrapper fade-up" style="transition-delay: 160ms">
-          <button
-            type="button"
-            class="flip-card"
-            aria-pressed="false"
-            aria-label="Professional Development with Public Purpose, activate to read more"
-          >
-            <div class="flip-inner">
-              <div class="flip-front">
-                <div class="text-gold" aria-hidden="true" data-draw-icon>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                  </svg>
-                </div>
-                <h4 class="font-heading text-white text-xl leading-snug">
-                  Professional Development with Public Purpose
-                </h4>
-                <div class="flip-indicator" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="flip-back" aria-hidden="true" inert>
-                <p class="font-heading text-white/85 text-base leading-relaxed">
-                  Through workshops, alumni and guest speaker panels, recruitment resources,
-                  networking opportunities, and mentorship, POLIS helps students build practical
-                  career skills while staying grounded in a larger commitment to public purpose. Our
-                  programming focuses on resume building, interview preparation, elevator pitches,
-                  networking, internship searches, and professional confidence.
-                </p>
-                <div class="flip-indicator" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </button>
-          </div>
+          ))}
 
         </div>
       </div>
@@ -418,7 +289,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
 
       <div class="max-w-4xl mx-auto">
         <blockquote class="pull-quote">
-          <p>As a founding chapter, POLIS seeks to build more than a professional organization. We are building a community of students who care about service, representation, and the future of public leadership.</p>
+          <p>{home.mission.closingQuote}</p>
         </blockquote>
       </div>
 

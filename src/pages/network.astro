@@ -1,42 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 
-// ----------------------------------------------------------------
-// INTERNSHIP LOGOS — auto-loaded from src/assets/internships/
-//
-// To add a new entry: drop a .png or .jpg file into that folder.
-// The filename becomes the card title:
-//   - Hyphens become spaces
-//   - A trailing -1, -2, -3 … suffix is stripped (multiple logos
-//     for the same category each get their own card under the same
-//     title, e.g. Legal-1.png, Legal-2.jpg, Legal-3.jpg → "Legal")
-//   - "and" stays lowercase because filenames already use it lowercase
-// ----------------------------------------------------------------
-const logoModules = import.meta.glob<{ default: ImageMetadata }>(
-  '../assets/internships/*.{png,jpg,jpeg,PNG,JPG,JPEG}',
-  { eager: true }
-);
+// To add or remove internship entries, edit src/data/internships.json — not this file.
+import networkData from '../data/internships.json';
 
-function filenameToTitle(path: string): string {
-  const stem = path.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
-  return stem.replace(/-\d+$/, '').replace(/-/g, ' ');
-}
+const { houseEntries, entries: internshipEntries } = networkData;
 
-const internshipCards = Object.entries(logoModules)
-  .map(([path, mod]) => ({ title: filenameToTitle(path), image: mod.default }))
-  .sort((a, b) => a.title.localeCompare(b.title));
-
-// House of Representatives entries — always first, share the House logo
+// House logo served from public/ (SVG, no Astro processing needed)
 const HOUSE_LOGO = '/network-logos/www_house.svg';
-const houseEntries = [
-  { title: 'Office of Rep. Jill Tokuda (HI-02)' },
-  { title: 'Office of Rep. Kathy Castor (FL-14)' },
-  { title: 'Office of Rep. Anna Paulina Luna (FL-13)' },
-];
-
-const totalCards = houseEntries.length + internshipCards.length;
 ---
 
 <Layout
@@ -71,7 +42,7 @@ const totalCards = houseEntries.length + internshipCards.length;
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           <!-- House of Representatives entries (always first) -->
-          {houseEntries.map((entry, i) => (
+          {houseEntries.map((entry: any, i: number) => (
             <div
               class="fade-up bg-white border border-gray rounded-sm p-5 flex flex-col gap-4
                      hover:border-gold hover:shadow-lg transition-all duration-300"
@@ -89,8 +60,8 @@ const totalCards = houseEntries.length + internshipCards.length;
             </div>
           ))}
 
-          <!-- Internship logos (auto-loaded from src/assets/internships/) -->
-          {internshipCards.map((card, i) => (
+          <!-- Internship logo entries from internships.json -->
+          {internshipEntries.map((card: any, i: number) => (
             <div
               class="fade-up bg-white border border-gray rounded-sm p-5 flex flex-col gap-4
                      hover:border-gold hover:shadow-lg transition-all duration-300"
@@ -98,10 +69,9 @@ const totalCards = houseEntries.length + internshipCards.length;
             >
               <p class="font-heading text-dark-blue text-sm leading-snug">{card.title}</p>
               <div class="flex-1 flex items-center justify-center min-h-[6rem]">
-                <Image
-                  src={card.image}
-                  alt=""
-                  width={280}
+                <img
+                  src={card.logo}
+                  alt={card.alt}
                   class="max-w-full max-h-24 w-auto h-auto"
                   loading="lazy"
                 />

@@ -1,0 +1,74 @@
+{
+  "houseEntries": [
+    { "title": "Office of Rep. Jill Tokuda (HI-02)" },
+    { "title": "Office of Rep. Kathy Castor (FL-14)" },
+    { "title": "Office of Rep. Anna Paulina Luna (FL-13)" }
+  ],
+  "entries": [
+    {
+      "title": "Business Development and Platform Support",
+      "logo": "/uploads/internships/Business-Development-and-Platform-Support.png",
+      "alt": "Business Development and Platform Support internship"
+    },
+    {
+      "title": "Consulting",
+      "logo": "/uploads/internships/Consulting.jpg",
+      "alt": "Consulting internship"
+    },
+    {
+      "title": "Digital Analytics and Donor Insights",
+      "logo": "/uploads/internships/Digital-Analytics-and-Donor-Insights.jpg",
+      "alt": "Digital Analytics and Donor Insights internship"
+    },
+    {
+      "title": "Income Security Research and Policy",
+      "logo": "/uploads/internships/Income-Security-Research-and-Policy.jpg",
+      "alt": "Income Security Research and Policy internship"
+    },
+    {
+      "title": "Knowledge Management",
+      "logo": "/uploads/internships/Knowledge-Management.png",
+      "alt": "Knowledge Management internship"
+    },
+    {
+      "title": "Legal",
+      "logo": "/uploads/internships/Legal-1.png",
+      "alt": "Legal internship"
+    },
+    {
+      "title": "Legal",
+      "logo": "/uploads/internships/Legal-2.jpg",
+      "alt": "Legal internship"
+    },
+    {
+      "title": "Legal",
+      "logo": "/uploads/internships/Legal-3.jpg",
+      "alt": "Legal internship"
+    },
+    {
+      "title": "Marketing",
+      "logo": "/uploads/internships/Marketing.jpg",
+      "alt": "Marketing internship"
+    },
+    {
+      "title": "Opposition Research",
+      "logo": "/uploads/internships/Opposition-Research.png",
+      "alt": "Opposition Research internship"
+    },
+    {
+      "title": "Outreach",
+      "logo": "/uploads/internships/Outreach.jpg",
+      "alt": "Outreach internship"
+    },
+    {
+      "title": "Remote Coalition and Digital Media",
+      "logo": "/uploads/internships/Remote-Coalition-and-Digital-Media.png",
+      "alt": "Remote Coalition and Digital Media internship"
+    },
+    {
+      "title": "Voting and Fair Representation",
+      "logo": "/uploads/internships/Voting-and-Fair-Representation.jpg",
+      "alt": "Voting and Fair Representation internship"
+    }
+  ]
+}
