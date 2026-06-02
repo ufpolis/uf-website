@@ -17,7 +17,7 @@ export const GET: APIRoute = ({ params }) => {
   // Compact ISO format required by iCalendar: 20260604T180000 (no separators, no Z = local time)
   const fmt = (iso: string) => iso.replace(/[-:]/g, '').split('.')[0];
 
-  const uid = `${event.slug}-polis-uf@ufpolis.org`;
+  const uid = `${event.slug}-polis-uf@ufpolis.com`;
 
   const lines = [
     'BEGIN:VCALENDAR',

@@ -1,15 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import landingImage from '../assets/capital_sunset.jpg';
-import capitalSunset from '../assets/landing_image.jpg';
+import capitalSunset from '../assets/capital_sunset.jpg';
+import landingImage from '../assets/landing_image.jpg';
 import ufImage from '../assets/uf_image.jpg';
 import senatePainting from '../assets/senate_painting.jpg';
 import polisMain from '../assets/polis_stripped.png';
+import site from '../data/site.json';
 
-const APPLY_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLSe1g7HSRXR4G9rdsw4vzKg1itcRVdx518P4UVzI7e3AxmbtOg/viewform';
-const INSTAGRAM_URL = 'https://www.instagram.com/ufpolis';
 const EXEC_BOARD_URL = '/members/executive-board';
 ---
 
@@ -23,7 +21,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
 
       <div class="absolute inset-0 z-0">
         <Image
-          src={landingImage}
+          src={capitalSunset}
           alt=""
           class="w-full h-full object-cover"
           width={1600}
@@ -57,7 +55,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
 
         <div class="flex flex-col items-center gap-3">
           <a
-            href={APPLY_URL}
+            href={site.applyUrl}
             target="_blank"
             rel="noopener noreferrer"
             data-magnetic
@@ -142,7 +140,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
           <!-- Photo + CTA -->
           <div class="w-full md:w-80 lg:w-96 shrink-0 flex flex-col gap-4">
             <Image
-              src={capitalSunset}
+              src={landingImage}
               alt="The U.S. Capitol building"
               width={800}
               height={533}
@@ -204,7 +202,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
               loading="lazy"
             />
             <a
-              href={INSTAGRAM_URL}
+              href={site.instagram}
               target="_blank"
               rel="noopener noreferrer"
               data-magnetic
@@ -407,7 +405,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
 
       <div class="flex justify-center py-12">
         <a
-          href={APPLY_URL}
+          href={site.applyUrl}
           target="_blank"
           rel="noopener noreferrer"
           data-magnetic
