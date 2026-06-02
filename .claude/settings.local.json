@@ -21,7 +21,8 @@
       "Bash(Select-Object -ExpandProperty Name)",
       "PowerShell(Copy-Item *)",
       "Bash(node *)",
-      "Bash(curl -s http://localhost:4322/)"
+      "Bash(curl -s http://localhost:4322/)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\luket\\\\OneDrive\\\\Documents\\\\Side Quests\\\\UFPOLIS\\\\UFPOLIS\" -Recurse)"
     ]
   }
 }

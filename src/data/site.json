@@ -5,5 +5,8 @@
   "instagramHandle": "@ufpolis",
   "linkedin": "https://www.linkedin.com/company/university-of-florida-polis/",
   "email": "ufpolis@gmail.com",
-  "applyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSe1g7HSRXR4G9rdsw4vzKg1itcRVdx518P4UVzI7e3AxmbtOg/viewform"
+  "applyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSe1g7HSRXR4G9rdsw4vzKg1itcRVdx518P4UVzI7e3AxmbtOg/viewform",
+
+  "_siteUrl_note": "Update this value when the final domain is confirmed. Used for canonical URLs, OG image, JSON-LD, sitemap, and robots.txt.",
+  "siteUrl": "https://polisuf.org"
 }
