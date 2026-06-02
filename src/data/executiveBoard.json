@@ -1,13 +1,13 @@
 [
   {
-    "_instructions": "HOW TO EDIT THIS FILE — Each entry is one member card on the Executive Board page. HEADSHOT: save the JPEG to public/headshots/ and set 'headshot' to '/headshots/first-last.jpg' (e.g. '/headshots/ana-gabriela-columa.jpg'). If no headshot yet, leave as null and the site shows a placeholder. LINKEDIN: set 'linkedin' to the full URL (e.g. 'https://www.linkedin.com/in/username'). If unknown, leave as null and no button will appear. BIO and MAJOR: replace the placeholder text in brackets with real content. To ADD a new member: copy one block from { to }, paste after the last }, add a comma between them, and fill in all fields. To REMOVE a member: delete the entire block and the comma before it."
+    "_instructions": "HOW TO EDIT THIS FILE — Each entry is one member card on the Executive Board page. HEADSHOT: save the JPEG to src/assets/headshots/ and set 'headshot' to the filename stem (e.g. 'ana-gabriela-columa' for ana-gabriela-columa.jpg). If no headshot yet, leave as null and the site shows a placeholder. LINKEDIN: set 'linkedin' to the full URL (e.g. 'https://www.linkedin.com/in/username'). If unknown, leave as null and no button will appear. BIO and MAJOR: replace the placeholder text in brackets with real content. To ADD a new member: copy one block from { to }, paste after the last }, add a comma between them, and fill in all fields. To REMOVE a member: delete the entire block and the comma before it."
   },
   {
     "name": "Ana Gabriela Columa",
     "position": "Co-President",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "ana-gabriela-columa",
     "linkedin": "https://www.linkedin.com/in/acoluma/"
   },
   {
@@ -15,7 +15,7 @@
     "position": "Co-President",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "elena-gonatos",
     "linkedin": "https://www.linkedin.com/in/elena-gonatos/"
   },
   {
@@ -23,7 +23,7 @@
     "position": "VP of Programming",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "bianca-anicama",
     "linkedin": "https://www.linkedin.com/in/bianca-anicama-207860264/"
   },
   {
@@ -31,15 +31,15 @@
     "position": "VP of Finance",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "miranda-blair",
     "linkedin": "https://www.linkedin.com/in/mblairacc/"
   },
   {
-    "name": "Abby Price",
+    "name": "Abagail Price",
     "position": "VP of Recruitment",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "abagail-price",
     "linkedin": "https://www.linkedin.com/in/abagail-price-b8a52229a/"
   },
   {
@@ -47,7 +47,7 @@
     "position": "VP of Professional Development",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "sandra-ukah",
     "linkedin": "https://www.linkedin.com/in/sandra-ukah/"
   },
   {
@@ -55,7 +55,7 @@
     "position": "VP of Professional Development",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "david-kraehmer",
     "linkedin": "https://www.linkedin.com/in/david-kraehmer456/"
   },
   {
@@ -63,7 +63,7 @@
     "position": "VP of New Member Education & Membership",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "sophia-flack",
     "linkedin": "https://www.linkedin.com/in/sophia-flack/"
   },
   {
@@ -71,7 +71,7 @@
     "position": "VP of New Member Education & Membership",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "sherry-jiang",
     "linkedin": "https://www.linkedin.com/in/sherry-jiang-/"
   },
   {
@@ -79,7 +79,7 @@
     "position": "VP of Internal Affairs",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "sofia-castaneda",
     "linkedin": "https://www.linkedin.com/in/sofiacastac/"
   },
   {
@@ -87,7 +87,7 @@
     "position": "VP of Expansion",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "uli-saetre",
     "linkedin": "https://www.linkedin.com/in/ulisaetre/"
   },
   {
@@ -103,7 +103,7 @@
     "position": "Social Chair",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "carolina-vairo",
     "linkedin": "https://www.linkedin.com/in/carolinacantonvairo/"
   },
   {
@@ -111,7 +111,7 @@
     "position": "Public Relations Chair",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "manuella-souck",
     "linkedin": "https://www.linkedin.com/in/manuellasouck/"
   },
   {
@@ -119,7 +119,7 @@
     "position": "Alumni Relations Chair",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "oliwia-lesniak",
     "linkedin": "https://www.linkedin.com/in/oliwia-lesniak/"
   },
   {
@@ -127,7 +127,7 @@
     "position": "Advocacy Chair",
     "major": "[Major, Year]",
     "bio": "[Bio placeholder — to be filled in]",
-    "headshot": null,
+    "headshot": "austin-purinton",
     "linkedin": "https://www.linkedin.com/in/austin-purinton-8369b3244/"
   }
 ]

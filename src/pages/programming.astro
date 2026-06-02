@@ -27,6 +27,10 @@ const events = (eventsData as any[])
       gcalUrl: `https://calendar.google.com/calendar/render?${params}`,
     };
   });
+
+// Only events with a confirmed date are included in the bulk .ics download
+const confirmedEvents = events.filter((e: any) => e.startISO);
+const hasConfirmedEvents = confirmedEvents.length > 0;
 ---
 
 <Layout
@@ -54,9 +58,35 @@ const events = (eventsData as any[])
     <section class="bg-white py-20 md:py-28 px-6">
       <div class="max-w-6xl mx-auto">
 
-        <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center mb-14 fade-up">
-          Upcoming Events
-        </h2>
+        <!-- Heading + Download button row -->
+        <div class="relative flex flex-col items-center gap-4 mb-14 fade-up">
+          <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center">
+            Upcoming Events
+          </h2>
+
+          {hasConfirmedEvents && (
+            <button
+              id="download-ics-btn"
+              type="button"
+              aria-label="Download all upcoming events as calendar file"
+              class="inline-flex items-center justify-center gap-2 border-2 border-gold text-gold
+                     font-heading text-sm px-5 py-3 rounded-sm min-h-[44px] w-full md:w-auto
+                     transition-colors duration-200 cursor-pointer
+                     hover:bg-gold hover:text-dark-blue
+                     focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2
+                     md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2"
+            >
+              <!-- Download arrow icon -->
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download All Events
+            </button>
+          )}
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           {events.map((event: any, i: number) => (
@@ -178,3 +208,93 @@ const events = (eventsData as any[])
 
   </main>
 </Layout>
+
+<script define:vars={{ confirmedEvents }}>
+  // ICS bulk download — fires on every navigation to this page (define:vars = inline script)
+  (function () {
+    var btn = document.getElementById('download-ics-btn');
+    if (!btn) return;
+
+    function escapeICS(str) {
+      return String(str || '')
+        .replace(/\\/g, '\\\\')
+        .replace(/;/g, '\\;')
+        .replace(/,/g, '\\,')
+        .replace(/\r?\n/g, '\\n');
+    }
+
+    // RFC 5545 line folding: wrap at 75 octets, continuation lines start with a space
+    function foldLine(line) {
+      if (line.length <= 75) return line;
+      var result = line.slice(0, 75);
+      var rest = line.slice(75);
+      while (rest.length > 0) {
+        result += '\r\n ' + rest.slice(0, 74);
+        rest = rest.slice(74);
+      }
+      return result;
+    }
+
+    btn.addEventListener('click', function () {
+      var dtstamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+
+      // Minimal VTIMEZONE for America/New_York with current US DST rules
+      var vtimezone = [
+        'BEGIN:VTIMEZONE',
+        'TZID:America/New_York',
+        'BEGIN:DAYLIGHT',
+        'TZOFFSETFROM:-0500',
+        'TZOFFSETTO:-0400',
+        'TZNAME:EDT',
+        'DTSTART:19700308T020000',
+        'RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3',
+        'END:DAYLIGHT',
+        'BEGIN:STANDARD',
+        'TZOFFSETFROM:-0400',
+        'TZOFFSETTO:-0500',
+        'TZNAME:EST',
+        'DTSTART:19701101T020000',
+        'RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11',
+        'END:STANDARD',
+        'END:VTIMEZONE',
+      ].join('\r\n');
+
+      var vevents = confirmedEvents.map(function (e) {
+        var dtstart = e.startISO.replace(/[-:]/g, '').split('.')[0];
+        var dtend   = e.endISO.replace(/[-:]/g, '').split('.')[0];
+        return [
+          'BEGIN:VEVENT',
+          foldLine('UID:' + e.slug + '@ufpolis'),
+          'DTSTAMP:' + dtstamp,
+          'DTSTART;TZID=America/New_York:' + dtstart,
+          'DTEND;TZID=America/New_York:' + dtend,
+          foldLine('SUMMARY:' + escapeICS(e.name)),
+          foldLine('DESCRIPTION:' + escapeICS(e.description)),
+          foldLine('LOCATION:' + escapeICS(e.location)),
+          'END:VEVENT',
+        ].join('\r\n');
+      });
+
+      var icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//POLIS UF//POLIS Events//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        vtimezone,
+        vevents.join('\r\n'),
+        'END:VCALENDAR',
+      ].join('\r\n');
+
+      var blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'polis-events.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  })();
+</script>

@@ -89,6 +89,7 @@ const icons = [
     <!-- Intro section -->
     <section id="about" data-section class="bg-white py-20 md:py-28 px-6">
       <div class="max-w-6xl mx-auto">
+        <div class="section-divider" aria-hidden="true"></div>
         <div class="flex flex-col md:flex-row items-start gap-12">
 
           <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6 fade-up">
@@ -133,20 +134,43 @@ const icons = [
     <section id="focus-areas" data-section class="bg-white py-20 md:py-28 px-6">
       <div class="max-w-6xl mx-auto">
 
+        <div class="section-divider" aria-hidden="true"></div>
         <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center mb-14 fade-up">
           Our Philanthropy Focus Areas
         </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-icon-grid>
           {focusAreas.map((area, i) => (
-            <article
-              class={`border-t-4 border-gold p-8 flex flex-col gap-5 fade-up ${i % 2 === 0 ? 'bg-white' : 'bg-surface'}`}
-              style={`transition-delay: ${i * 70}ms`}
+            <div class="flip-card-wrapper fade-up" style={`transition-delay: ${i * 70}ms`}>
+            <button
+              type="button"
+              class="flip-card"
+              aria-pressed="false"
+              aria-label={`${area.title}, activate to read more`}
             >
-              <div class="text-gold" aria-hidden="true" set:html={icons[i]} />
-              <h3 class="font-heading text-dark-blue text-xl leading-snug">{area.title}</h3>
-              <p class="font-heading text-dark-blue/75 text-base leading-relaxed">{area.description}</p>
-            </article>
+              <div class="flip-inner">
+                <div class="flip-front">
+                  <div class="text-gold" aria-hidden="true" data-draw-icon set:html={icons[i]} />
+                  <h3 class="font-heading text-white text-xl leading-snug">{area.title}</h3>
+                  <div class="flip-indicator" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="flip-back" aria-hidden="true" inert>
+                  <p class="font-heading text-white/85 text-base leading-relaxed">
+                    {area.description}
+                  </p>
+                  <div class="flip-indicator" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </button>
+            </div>
           ))}
         </div>
 
@@ -158,6 +182,7 @@ const icons = [
     <section id="future-initiatives" data-section class="bg-light-blue py-20 md:py-28 px-6">
       <div class="max-w-6xl mx-auto">
 
+        <div class="section-divider" aria-hidden="true"></div>
         <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center mb-14 fade-up">
           Future Initiatives
         </h2>
@@ -193,39 +218,69 @@ const icons = [
 </Layout>
 
 <script>
-  const sections = [...document.querySelectorAll('[data-section]')];
-  const navLinks = [...document.querySelectorAll('.section-nav-link')];
-  const visible = new Set();
+  document.addEventListener('astro:page-load', () => {
+    const sections = [...document.querySelectorAll('[data-section]')];
+    const navLinks = [...document.querySelectorAll('.section-nav-link')];
+    if (!sections.length) return;
 
-  function updateNav() {
-    const tops = [...visible].map((el) => ({
-      el,
-      top: (el as HTMLElement).getBoundingClientRect().top,
-    }));
-    const inView = tops.filter(({ top }) => top >= 0);
-    const candidate = inView.length
-      ? inView.reduce((a, b) => (a.top <= b.top ? a : b))
-      : tops.length
-      ? tops.reduce((a, b) => (a.top >= b.top ? a : b))
-      : null;
+    // ----------------------------------------------------------------
+    // Section sub-nav tracking
+    // ----------------------------------------------------------------
+    const visible = new Set<Element>();
 
-    navLinks.forEach((l) => l.classList.remove('active'));
-    if (candidate) {
-      document
-        .querySelector(`.section-nav-link[href="#${(candidate.el as HTMLElement).id}"]`)
-        ?.classList.add('active');
+    function updateNav() {
+      const tops = [...visible].map((el) => ({
+        el,
+        top: (el as HTMLElement).getBoundingClientRect().top,
+      }));
+      const inView = tops.filter(({ top }) => top >= 0);
+      const candidate = inView.length
+        ? inView.reduce((a, b) => (a.top <= b.top ? a : b))
+        : tops.length
+        ? tops.reduce((a, b) => (a.top >= b.top ? a : b))
+        : null;
+
+      navLinks.forEach((l) => l.classList.remove('active'));
+      if (candidate) {
+        document
+          .querySelector(`.section-nav-link[href="#${(candidate.el as HTMLElement).id}"]`)
+          ?.classList.add('active');
+      }
     }
-  }
 
-  const sectionObs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(({ target, isIntersecting }) => {
-        isIntersecting ? visible.add(target) : visible.delete(target);
+    const sectionObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          isIntersecting ? visible.add(target) : visible.delete(target);
+        });
+        updateNav();
+      },
+      { rootMargin: '0px 0px -20% 0px', threshold: 0 }
+    );
+    sections.forEach((s) => sectionObs.observe(s));
+
+    // ----------------------------------------------------------------
+    // SVG icon self-draw (Effect 8)
+    // ----------------------------------------------------------------
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('[data-icon-grid]').forEach((grid) => {
+        const obs = new IntersectionObserver(([entry]) => {
+          if (!entry.isIntersecting) return;
+          obs.unobserve(entry.target);
+          grid.querySelectorAll<HTMLElement>('[data-draw-icon]').forEach((iconEl, i) => {
+            const paths = iconEl.querySelectorAll<SVGGeometryElement>('path');
+            paths.forEach((p) => {
+              const len = p.getTotalLength();
+              p.style.strokeDasharray = String(len);
+              p.style.strokeDashoffset = String(len);
+            });
+            setTimeout(() => {
+              paths.forEach((p) => { p.style.strokeDashoffset = '0'; });
+            }, 300 + i * 80);
+          });
+        }, { threshold: 0.2 });
+        obs.observe(grid);
       });
-      updateNav();
-    },
-    { rootMargin: '0px 0px -20% 0px', threshold: 0 }
-  );
-
-  sections.forEach((s) => sectionObs.observe(s));
+    }
+  });
 </script>

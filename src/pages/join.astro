@@ -59,6 +59,7 @@ const timelineSteps = [
           href={site.applyUrl}
           target="_blank"
           rel="noopener noreferrer"
+          data-magnetic
           class="inline-block bg-gold text-dark-blue font-heading font-semibold text-lg px-8 py-4 rounded-sm hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-dark-blue transition"
         >
           Apply Now
@@ -176,7 +177,7 @@ const timelineSteps = [
           <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-gold shrink-0">
             <Image
               src={polisPlaceholder}
-              alt="Abby Price — VP of Recruitment"
+              alt="Abagail Price — VP of Recruitment"
               width={160}
               height={160}
               class="w-full h-full object-cover opacity-60"
@@ -187,9 +188,9 @@ const timelineSteps = [
           <!-- Text -->
           <div class="flex flex-col gap-2 text-center md:text-left">
             <p class="font-heading text-gold text-sm uppercase tracking-widest">VP of Recruitment</p>
-            <h3 class="font-heading text-dark-blue text-2xl">Abby Price</h3>
+            <h3 class="font-heading text-dark-blue text-2xl">Abagail Price</h3>
             <p class="font-heading text-dark-blue/70 text-base leading-relaxed mt-2">
-              Abby Price serves as POLIS UF's VP of Recruitment and is the primary point of
+              Abagail Price serves as POLIS UF's VP of Recruitment and is the primary point of
               contact for all recruitment and application questions. If you have questions about
               joining, the recruitment process, or what to expect, reach out directly.
             </p>
@@ -214,7 +215,7 @@ const timelineSteps = [
                 class="inline-flex items-center gap-2 font-heading text-dark-blue text-base
                        border border-gray/60 px-5 py-2.5 rounded-sm hover:border-gold
                        hover:shadow-sm transition-all duration-200"
-                aria-label="Abby Price on LinkedIn (opens in new tab)"
+                aria-label="Abagail Price on LinkedIn (opens in new tab)"
               >
                 <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -283,6 +284,7 @@ const timelineSteps = [
           href={site.applyUrl}
           target="_blank"
           rel="noopener noreferrer"
+          data-magnetic
           class="inline-block bg-gold text-dark-blue font-heading font-semibold text-lg px-10 py-4 rounded-sm hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-dark-blue focus:ring-offset-2 transition"
         >
           Apply Now
@@ -295,39 +297,42 @@ const timelineSteps = [
 </Layout>
 
 <script>
-  const sections = [...document.querySelectorAll('[data-section]')];
-  const navLinks = [...document.querySelectorAll('.section-nav-link')];
-  const visible = new Set();
+  document.addEventListener('astro:page-load', () => {
+    const sections = [...document.querySelectorAll('[data-section]')];
+    const navLinks = [...document.querySelectorAll('.section-nav-link')];
+    if (!sections.length) return;
 
-  function updateNav() {
-    const tops = [...visible].map((el) => ({
-      el,
-      top: (el as HTMLElement).getBoundingClientRect().top,
-    }));
-    const inView = tops.filter(({ top }) => top >= 0);
-    const candidate = inView.length
-      ? inView.reduce((a, b) => (a.top <= b.top ? a : b))
-      : tops.length
-      ? tops.reduce((a, b) => (a.top >= b.top ? a : b))
-      : null;
+    const visible = new Set<Element>();
 
-    navLinks.forEach((l) => l.classList.remove('active'));
-    if (candidate) {
-      document
-        .querySelector(`.section-nav-link[href="#${(candidate.el as HTMLElement).id}"]`)
-        ?.classList.add('active');
+    function updateNav() {
+      const tops = [...visible].map((el) => ({
+        el,
+        top: (el as HTMLElement).getBoundingClientRect().top,
+      }));
+      const inView = tops.filter(({ top }) => top >= 0);
+      const candidate = inView.length
+        ? inView.reduce((a, b) => (a.top <= b.top ? a : b))
+        : tops.length
+        ? tops.reduce((a, b) => (a.top >= b.top ? a : b))
+        : null;
+
+      navLinks.forEach((l) => l.classList.remove('active'));
+      if (candidate) {
+        document
+          .querySelector(`.section-nav-link[href="#${(candidate.el as HTMLElement).id}"]`)
+          ?.classList.add('active');
+      }
     }
-  }
 
-  const sectionObs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(({ target, isIntersecting }) => {
-        isIntersecting ? visible.add(target) : visible.delete(target);
-      });
-      updateNav();
-    },
-    { rootMargin: '0px 0px -20% 0px', threshold: 0 }
-  );
-
-  sections.forEach((s) => sectionObs.observe(s));
+    const sectionObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          isIntersecting ? visible.add(target) : visible.delete(target);
+        });
+        updateNav();
+      },
+      { rootMargin: '0px 0px -20% 0px', threshold: 0 }
+    );
+    sections.forEach((s) => sectionObs.observe(s));
+  });
 </script>

@@ -1,10 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import landingImage from '../assets/landing_image.jpg';
-import capitalZoomout from '../assets/capital_zoomout.jpg';
-import capitalSunset from '../assets/capital_sunset.jpg';
+import landingImage from '../assets/capital_sunset.jpg';
+import capitalSunset from '../assets/landing_image.jpg';
+import ufImage from '../assets/uf_image.jpg';
 import senatePainting from '../assets/senate_painting.jpg';
+import polisMain from '../assets/polis_stripped.png';
 
 const APPLY_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSe1g7HSRXR4G9rdsw4vzKg1itcRVdx518P4UVzI7e3AxmbtOg/viewform';
@@ -18,7 +19,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
     <!-- ============================================================
          HERO
          ============================================================ -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden hero-spotlight">
 
       <div class="absolute inset-0 z-0">
         <Image
@@ -35,8 +36,18 @@ const EXEC_BOARD_URL = '/members/executive-board';
 
       <div class="relative z-10 text-center px-6 max-w-4xl mx-auto py-24">
 
-        <h1 class="font-heading text-white text-4xl md:text-6xl lg:text-7xl leading-tight mb-6">
-          Pi Lambda Sigma at the University of Florida
+        <!-- Hero seal — ID required for scroll migration animation -->
+        <div id="hero-seal" class="w-24 h-24 rounded-full overflow-hidden mx-auto mb-8 ring-2 ring-white/20">
+          <Image
+            src={polisMain}
+            alt=""
+            width={240}
+            class="w-full h-full object-cover object-center"
+            loading="eager"
+          />
+        </div>
+        <h1 class="font-heading text-white leading-tight mb-5 hero-wordmark">
+          <span class="block text-[58px] md:text-[82px] lg:text-[106px]">POLIS</span>
         </h1>
 
         <p class="font-heading text-white/90 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed mb-8">
@@ -44,43 +55,33 @@ const EXEC_BOARD_URL = '/members/executive-board';
           students interested in government, policy, and public service.
         </p>
 
-        <div class="mb-10">
-          <span class="inline-block border border-gold text-gold font-heading text-sm uppercase tracking-wide px-5 py-2 rounded-sm">
-            Now Recruiting Our Founding Class
-          </span>
-        </div>
-
-        <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-
+        <div class="flex flex-col items-center gap-3">
           <a
             href={APPLY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full sm:w-auto min-h-[44px] flex items-center justify-center bg-gold text-dark-blue font-heading font-semibold text-base px-7 py-3 rounded-sm hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-dark-blue transition"
+            data-magnetic
+            class="apply-hero-btn min-h-[44px] inline-flex items-center justify-center font-heading font-semibold text-base px-7 py-3 rounded-sm focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-dark-blue"
           >
             Apply Now
+            <span class="btn-arrow" aria-hidden="true">→</span>
             <span class="sr-only">(opens in new tab)</span>
           </a>
-
-          <a
-            href={EXEC_BOARD_URL}
-            class="w-full sm:w-auto min-h-[44px] flex items-center justify-center border border-white text-white font-heading font-semibold text-base px-7 py-3 rounded-sm hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-dark-blue transition"
-          >
-            Meet the Executive Board
-          </a>
-
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-full sm:w-auto min-h-[44px] flex items-center justify-center border border-white text-white font-heading font-semibold text-base px-7 py-3 rounded-sm hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-dark-blue transition"
-          >
-            Follow Us on Instagram
-            <span class="sr-only">(opens in new tab)</span>
-          </a>
-
+          <p class="font-heading text-white/85 text-sm tracking-wide">Become a Founding Member</p>
         </div>
+
       </div>
+
+      <!-- Scroll cue chevron — fades out on scroll, no animation under prefers-reduced-motion -->
+      <div id="scroll-cue" aria-hidden="true"
+           class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             style="color: var(--color-gold)">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+
     </section>
 
 
@@ -105,6 +106,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
     <section id="who-we-are" data-section class="bg-white py-20 md:py-28 px-6">
       <div class="max-w-6xl mx-auto">
 
+        <div class="section-divider" aria-hidden="true"></div>
         <h2 class="font-heading text-dark-blue text-4xl md:text-5xl mb-12 text-center">
           Who We Are
         </h2>
@@ -137,19 +139,27 @@ const EXEC_BOARD_URL = '/members/executive-board';
             </p>
           </div>
 
-          <!-- Photo -->
-          <div class="w-full md:w-80 lg:w-96 shrink-0">
+          <!-- Photo + CTA -->
+          <div class="w-full md:w-80 lg:w-96 shrink-0 flex flex-col gap-4">
             <Image
-              src={capitalZoomout}
+              src={capitalSunset}
               alt="The U.S. Capitol building"
               width={800}
               height={533}
               class="w-full h-auto rounded-sm object-cover"
               loading="lazy"
             />
+            <a
+              href={EXEC_BOARD_URL}
+              data-magnetic
+              class="self-center min-h-[44px] inline-flex items-center justify-center border border-dark-blue text-dark-blue font-heading font-semibold text-base px-7 py-3 rounded-sm hover:bg-dark-blue/10 focus:outline-none focus:ring-2 focus:ring-dark-blue focus:ring-offset-2 transition"
+            >
+              Meet the Founding Executive Board
+            </a>
           </div>
 
         </div>
+
       </div>
     </section>
 
@@ -160,6 +170,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
     <section id="why-polis" data-section class="bg-light-blue py-20 md:py-28 px-6">
       <div class="max-w-6xl mx-auto">
 
+        <div class="section-divider" aria-hidden="true"></div>
         <h2 class="font-heading text-dark-blue text-4xl md:text-5xl mb-12 text-center">
           Why POLIS?
         </h2>
@@ -169,34 +180,45 @@ const EXEC_BOARD_URL = '/members/executive-board';
           <!-- Text -->
           <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6">
             <p class="lede">
-              POLIS UF is more than a professional society. It is a community for students who
+              POLIS is more than just a professional society. It is a community for students who
               want to lead, serve, and shape the future of public leadership. Through professional
-              development, mentorship, advocacy, service, and networking opportunities, POLIS UF
+              development, mentorship, advocacy, service, and networking opportunities, POLIS
               prepares students to pursue careers in public service, politics, legal studies,
               government, policy, and civic leadership.
             </p>
             <blockquote class="pull-quote">
-              <p>POLIS UF is more than a professional society. It is a community for students who want to lead, serve, and shape the future of public leadership.</p>
+              <p>POLIS is more than just a professional society. It is a community for students who want to lead, serve, and shape the future of public leadership.</p>
             </blockquote>
             <p>
-              As a Founding Fellow, you will not only join POLIS UF. You will help build its
-              culture, traditions, programming, and long-term impact at the University of Florida.
+              As a Founding Fellow, you will help build its culture, traditions, programming, and
+              long-term impact at the University of Florida.
             </p>
           </div>
 
-          <!-- Photo -->
-          <div class="w-full md:w-80 lg:w-96 shrink-0">
+          <!-- Photo + CTA -->
+          <div class="w-full md:w-80 lg:w-96 shrink-0 flex flex-col gap-4">
             <Image
-              src={capitalSunset}
-              alt="The U.S. Capitol at sunset"
+              src={ufImage}
+              alt="University of Florida campus"
               width={800}
               height={533}
               class="w-full h-auto rounded-sm object-cover"
               loading="lazy"
             />
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-magnetic
+              class="self-center min-h-[44px] inline-flex items-center justify-center border border-dark-blue text-dark-blue font-heading font-semibold text-base px-7 py-3 rounded-sm hover:bg-dark-blue/10 focus:outline-none focus:ring-2 focus:ring-dark-blue focus:ring-offset-2 transition"
+            >
+              Follow Us on Instagram
+              <span class="sr-only">(opens in new tab)</span>
+            </a>
           </div>
 
         </div>
+
       </div>
     </section>
 
@@ -207,6 +229,7 @@ const EXEC_BOARD_URL = '/members/executive-board';
     <section id="mission" data-section class="bg-white py-20 md:py-28 px-6">
       <div class="max-w-4xl mx-auto">
 
+        <div class="section-divider" aria-hidden="true"></div>
         <h2 class="font-heading text-dark-blue text-4xl md:text-5xl mb-10 text-center">
           Mission
         </h2>
@@ -255,120 +278,349 @@ const EXEC_BOARD_URL = '/members/executive-board';
 
       <!-- Three goal cards — wider container, always-visible static grid -->
       <div class="max-w-5xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-icon-grid>
 
-          <!-- Card 1 — white -->
-          <article class="bg-white border-t-4 border-gold p-8 flex flex-col gap-5 fade-up">
-            <div class="text-gold" aria-hidden="true">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-              </svg>
+          <!-- Card 1 -->
+          <div class="flip-card-wrapper fade-up">
+          <button
+            type="button"
+            class="flip-card"
+            aria-pressed="false"
+            aria-label="Public Service and Ethical Leadership, activate to read more"
+          >
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="text-gold" aria-hidden="true" data-draw-icon>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                </div>
+                <h4 class="font-heading text-white text-xl leading-snug">
+                  Public Service &amp; Ethical Leadership
+                </h4>
+                <div class="flip-indicator" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="flip-back" aria-hidden="true" inert>
+                <p class="font-heading text-white/85 text-base leading-relaxed">
+                  We aim to cultivate future leaders who are committed to serving their communities
+                  with integrity, responsibility, and purpose. Through speaker events, policy
+                  discussions, advocacy projects, and hands-on public service initiatives, POLIS UF
+                  encourages students to think critically about how leadership can be used to create
+                  stronger institutions and better policies.
+                </p>
+                <div class="flip-indicator" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                  </svg>
+                </div>
+              </div>
             </div>
-            <h4 class="font-heading text-dark-blue text-xl leading-snug">
-              Public Service &amp; Ethical Leadership
-            </h4>
-            <p class="font-heading text-dark-blue/75 text-base leading-relaxed">
-              We aim to cultivate future leaders who are committed to serving their communities
-              with integrity, responsibility, and purpose. Through speaker events, policy
-              discussions, advocacy projects, and hands-on public service initiatives, POLIS UF
-              encourages students to think critically about how leadership can be used to create
-              stronger institutions and better policies.
-            </p>
-          </article>
+          </button>
+          </div>
 
-          <!-- Card 2 — surface -->
-          <article class="bg-surface border-t-4 border-gold p-8 flex flex-col gap-5 fade-up" style="transition-delay: 80ms">
-            <div class="text-gold" aria-hidden="true">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
+          <!-- Card 2 -->
+          <div class="flip-card-wrapper fade-up" style="transition-delay: 80ms">
+          <button
+            type="button"
+            class="flip-card"
+            aria-pressed="false"
+            aria-label="Inclusive Governance and Accessibility, activate to read more"
+          >
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="text-gold" aria-hidden="true" data-draw-icon>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                  </svg>
+                </div>
+                <h4 class="font-heading text-white text-xl leading-snug">
+                  Inclusive Governance &amp; Accessibility
+                </h4>
+                <div class="flip-indicator" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="flip-back" aria-hidden="true" inert>
+                <p class="font-heading text-white/85 text-base leading-relaxed">
+                  POLIS UF is committed to making careers in government, law, policy, and public
+                  service more accessible to students from all backgrounds. We recognize that many
+                  professional spaces have systemic barriers, including unpaid or low-paid
+                  internships, limited mentorship, lack of access to professional resources, and
+                  unequal exposure to networking opportunities. Our goal is to help reduce those
+                  barriers by connecting students with guidance, resources, and support.
+                </p>
+                <div class="flip-indicator" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                  </svg>
+                </div>
+              </div>
             </div>
-            <h4 class="font-heading text-dark-blue text-xl leading-snug">
-              Inclusive Governance &amp; Accessibility
-            </h4>
-            <p class="font-heading text-dark-blue/75 text-base leading-relaxed">
-              POLIS UF is committed to making careers in government, law, policy, and public
-              service more accessible to students from all backgrounds. We recognize that many
-              professional spaces have systemic barriers, including unpaid or low-paid
-              internships, limited mentorship, lack of access to professional resources, and
-              unequal exposure to networking opportunities. Our goal is to help reduce those
-              barriers by connecting students with guidance, resources, and support.
-            </p>
-          </article>
+          </button>
+          </div>
 
-          <!-- Card 3 — white -->
-          <article class="bg-white border-t-4 border-gold p-8 flex flex-col gap-5 fade-up" style="transition-delay: 160ms">
-            <div class="text-gold" aria-hidden="true">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-              </svg>
+          <!-- Card 3 -->
+          <div class="flip-card-wrapper fade-up" style="transition-delay: 160ms">
+          <button
+            type="button"
+            class="flip-card"
+            aria-pressed="false"
+            aria-label="Professional Development with Public Purpose, activate to read more"
+          >
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="text-gold" aria-hidden="true" data-draw-icon>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                  </svg>
+                </div>
+                <h4 class="font-heading text-white text-xl leading-snug">
+                  Professional Development with Public Purpose
+                </h4>
+                <div class="flip-indicator" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="flip-back" aria-hidden="true" inert>
+                <p class="font-heading text-white/85 text-base leading-relaxed">
+                  Through workshops, alumni and guest speaker panels, recruitment resources,
+                  networking opportunities, and mentorship, POLIS UF helps students build practical
+                  career skills while staying grounded in a larger commitment to public purpose. Our
+                  programming focuses on resume building, interview preparation, elevator pitches,
+                  networking, internship searches, and professional confidence.
+                </p>
+                <div class="flip-indicator" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                  </svg>
+                </div>
+              </div>
             </div>
-            <h4 class="font-heading text-dark-blue text-xl leading-snug">
-              Professional Development with Public Purpose
-            </h4>
-            <p class="font-heading text-dark-blue/75 text-base leading-relaxed">
-              Through workshops, alumni and guest speaker panels, recruitment resources,
-              networking opportunities, and mentorship, POLIS UF helps students build practical
-              career skills while staying grounded in a larger commitment to public purpose. Our
-              programming focuses on resume building, interview preparation, elevator pitches,
-              networking, internship searches, and professional confidence.
-            </p>
-          </article>
+          </button>
+          </div>
 
         </div>
       </div>
 
+      <div class="flex justify-center py-12">
+        <a
+          href={APPLY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-magnetic
+          class="min-h-[44px] inline-flex items-center justify-center bg-gold text-dark-blue font-heading font-semibold text-base px-7 py-3 rounded-sm hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-dark-blue focus:ring-offset-2 transition"
+        >
+          Apply Now
+          <span class="sr-only">(opens in new tab)</span>
+        </a>
+      </div>
+
       <div class="max-w-4xl mx-auto">
-        <p class="font-heading text-dark-blue text-lg leading-relaxed mt-10 prose-measure">
-          As a founding chapter, POLIS UF seeks to build more than a professional organization.
-          We are building a community of students who care about service, representation, and
-          the future of public leadership.
-        </p>
+        <blockquote class="pull-quote">
+          <p>As a founding chapter, POLIS UF seeks to build more than a professional organization. We are building a community of students who care about service, representation, and the future of public leadership.</p>
+        </blockquote>
       </div>
 
     </section>
+
+    <!-- MLK quote easter egg overlay — triggered by triple-clicking the hero seal -->
+    <div
+      id="quote-overlay"
+      role="dialog"
+      aria-label="Quote"
+      aria-hidden="true"
+      class="fixed inset-0 z-50 flex items-center justify-center p-6"
+    >
+      <div class="absolute inset-0 bg-dark-blue/75" aria-hidden="true"></div>
+      <div
+        id="quote-card"
+        tabindex="-1"
+        class="relative z-10 max-w-xl w-full bg-dark-blue border-t-4 border-gold rounded-sm p-8 md:p-10 shadow-2xl"
+      >
+        <blockquote class="font-heading italic text-white text-2xl leading-relaxed mb-5">
+          "Life's most persistent and urgent question is, 'What are you doing for others?'"
+        </blockquote>
+        <p class="font-heading text-white/70 text-base not-italic">
+          — Martin Luther King Jr.
+        </p>
+      </div>
+    </div>
 
   </main>
 </Layout>
 
 <script>
-  // Section sub-nav: track all intersecting sections; highlight the topmost in view
-  const sections = [...document.querySelectorAll('[data-section]')];
-  const navLinks = [...document.querySelectorAll('.section-nav-link')];
-  const visible = new Set();
+  // ── Easter egg state — module-level so it persists across navigations ──
+  let _eggAbort: AbortController | null = null;
+  let _eggCount = 0;
+  let _lastClick = 0;
 
-  function updateNav() {
-    const tops = [...visible].map((el) => ({
-      el,
-      top: (el as HTMLElement).getBoundingClientRect().top,
-    }));
-    const inView = tops.filter(({ top }) => top >= 0);
-    const candidate = inView.length
-      ? inView.reduce((a, b) => (a.top <= b.top ? a : b))
-      : tops.length
-      ? tops.reduce((a, b) => (a.top >= b.top ? a : b))
-      : null;
+  function initSealEasterEgg() {
+    _eggAbort?.abort();
+    _eggAbort = null;
 
-    navLinks.forEach((l) => l.classList.remove('active'));
-    if (candidate) {
-      document
-        .querySelector(`.section-nav-link[href="#${(candidate.el as HTMLElement).id}"]`)
-        ?.classList.add('active');
+    const seal    = document.getElementById('hero-seal')     as HTMLElement | null;
+    const overlay = document.getElementById('quote-overlay') as HTMLElement | null;
+    const card    = document.getElementById('quote-card')    as HTMLElement | null;
+    if (!seal || !overlay || !card) return;
+
+    const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    _eggAbort = new AbortController();
+    const { signal } = _eggAbort;
+
+    // Track pointer-down position + time to exclude drags and long-presses
+    let _downX = 0, _downY = 0, _downTime = 0;
+    seal.addEventListener('pointerdown', (e) => {
+      _downX    = (e as PointerEvent).clientX;
+      _downY    = (e as PointerEvent).clientY;
+      _downTime = Date.now();
+    }, { signal });
+
+    seal.addEventListener('click', (e) => {
+      const moved = Math.abs((e as MouseEvent).clientX - _downX) > 8
+                 || Math.abs((e as MouseEvent).clientY - _downY) > 8;
+      const held  = Date.now() - _downTime > 500;
+      if (moved || held) { _eggCount = 0; _lastClick = 0; return; }
+
+      const now = Date.now();
+      if (now - _lastClick > 1500) _eggCount = 0;  // gap too long — reset
+      _lastClick = now;
+      _eggCount++;
+
+      if (_eggCount >= 3) {
+        _eggCount  = 0;
+        _lastClick = 0;
+        showQuote();
+      }
+    }, { signal });
+
+    function showQuote() {
+      if (overlay.classList.contains('is-visible')) return;
+      overlay.setAttribute('aria-hidden', 'false');
+      overlay.classList.add('is-visible');
+      card.focus();
     }
+
+    function hideQuote() {
+      overlay.classList.remove('is-visible');
+      setTimeout(
+        () => overlay.setAttribute('aria-hidden', 'true'),
+        noMotion ? 0 : 400
+      );
+      seal.focus();
+    }
+
+    // Dismiss: click anywhere on the overlay (backdrop + card)
+    overlay.addEventListener('click', hideQuote, { signal });
+
+    // Dismiss: Escape key
+    document.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Escape' && overlay.classList.contains('is-visible')) {
+        hideQuote();
+      }
+    }, { signal });
   }
 
-  const sectionObs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(({ target, isIntersecting }) => {
-        isIntersecting ? visible.add(target) : visible.delete(target);
-      });
-      updateNav();
-    },
-    { rootMargin: '0px 0px -20% 0px', threshold: 0 }
-  );
+  document.addEventListener('astro:page-load', () => {
+    initSealEasterEgg();
 
-  sections.forEach((s) => sectionObs.observe(s));
+    // Guard: only run on pages that have a section sub-nav
+    const sections = [...document.querySelectorAll('[data-section]')];
+    const navLinks = [...document.querySelectorAll('.section-nav-link')];
+    if (!sections.length) return;
+
+    // ----------------------------------------------------------------
+    // Section sub-nav: track visible sections, highlight the topmost
+    // ----------------------------------------------------------------
+    const visible = new Set<Element>();
+
+    function updateNav() {
+      const tops = [...visible].map((el) => ({
+        el,
+        top: (el as HTMLElement).getBoundingClientRect().top,
+      }));
+      const inView = tops.filter(({ top }) => top >= 0);
+      const candidate = inView.length
+        ? inView.reduce((a, b) => (a.top <= b.top ? a : b))
+        : tops.length
+        ? tops.reduce((a, b) => (a.top >= b.top ? a : b))
+        : null;
+
+      navLinks.forEach((l) => l.classList.remove('active'));
+      if (candidate) {
+        document
+          .querySelector(`.section-nav-link[href="#${(candidate.el as HTMLElement).id}"]`)
+          ?.classList.add('active');
+      }
+    }
+
+    const sectionObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          isIntersecting ? visible.add(target) : visible.delete(target);
+        });
+        updateNav();
+      },
+      { rootMargin: '0px 0px -20% 0px', threshold: 0 }
+    );
+    sections.forEach((s) => sectionObs.observe(s));
+
+    // ----------------------------------------------------------------
+    // Hero cursor-following spotlight (Effect 4)
+    // ----------------------------------------------------------------
+    const hero = document.querySelector<HTMLElement>('.hero-spotlight');
+    if (hero && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let spotRaf: number;
+      hero.addEventListener('mousemove', (e) => {
+        cancelAnimationFrame(spotRaf);
+        spotRaf = requestAnimationFrame(() => {
+          const r = hero.getBoundingClientRect();
+          hero.style.setProperty('--cursor-x', `${((e as MouseEvent).clientX - r.left) / r.width * 100}%`);
+          hero.style.setProperty('--cursor-y', `${((e as MouseEvent).clientY - r.top) / r.height * 100}%`);
+        });
+      });
+      hero.addEventListener('mouseleave', () => {
+        cancelAnimationFrame(spotRaf);
+        hero.style.setProperty('--cursor-x', '50%');
+        hero.style.setProperty('--cursor-y', '50%');
+      });
+    }
+
+    // ----------------------------------------------------------------
+    // SVG icon self-draw (Effect 8)
+    // Only <path> elements animate; other shapes appear instantly.
+    // Draws after card fade-up completes (300ms base + 80ms stagger).
+    // ----------------------------------------------------------------
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('[data-icon-grid]').forEach((grid) => {
+        const obs = new IntersectionObserver(([entry]) => {
+          if (!entry.isIntersecting) return;
+          obs.unobserve(entry.target);
+          grid.querySelectorAll<HTMLElement>('[data-draw-icon]').forEach((iconEl, i) => {
+            const paths = iconEl.querySelectorAll<SVGGeometryElement>('path');
+            paths.forEach((p) => {
+              const len = p.getTotalLength();
+              p.style.strokeDasharray = String(len);
+              p.style.strokeDashoffset = String(len);
+            });
+            setTimeout(() => {
+              paths.forEach((p) => { p.style.strokeDashoffset = '0'; });
+            }, 300 + i * 80);
+          });
+        }, { threshold: 0.2 });
+        obs.observe(grid);
+      });
+    }
+  });
 </script>

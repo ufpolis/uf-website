@@ -1,8 +1,11 @@
 ---
 import '@fontsource-variable/eb-garamond';
+import '@fontsource/cardo';
 import '../styles/global.css';
 import { Image } from 'astro:assets';
+import ClientRouter from 'astro/components/ClientRouter.astro';
 import polisSquare from '../assets/polis_square.png';
+import polisStripped from '../assets/polis_stripped.png';
 import site from '../data/site.json';
 
 interface Props {
@@ -31,6 +34,7 @@ const currentPath = Astro.url.pathname;
 
     <title>{title}</title>
     <script is:inline>if (!localStorage.getItem('bannerDismissed')) document.documentElement.classList.add('banner-show');</script>
+    <ClientRouter />
   </head>
 
   <body>
@@ -48,7 +52,7 @@ const currentPath = Astro.url.pathname;
          both transition from transparent to solid dark blue on scroll.
          The head script applies .header-scrolled once the hero exits.
          ============================================================ -->
-    <div id="site-header-wrapper" class="sticky top-0 z-50">
+    <div id="site-header-wrapper" class="sticky top-0 z-50" transition:persist>
 
     <!-- ============================================================
          FOUNDING CLASS BANNER
@@ -88,22 +92,43 @@ const currentPath = Astro.url.pathname;
     <header>
       <nav
         aria-label="Main navigation"
-        class="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-6 h-14 md:h-16"
+        class="max-w-7xl mx-auto grid grid-cols-[1fr_auto_1fr] items-center px-4 md:px-6 h-14 md:h-16"
       >
 
-        <!-- Logo (always visible) -->
-        <a href="/" aria-label="POLIS UF — home">
-          <Image
-            src={polisSquare}
-            alt=""
-            width={88}
-            height={88}
-            class="h-9 md:h-11 w-auto"
-            loading="eager"
-          />
-        </a>
+        <!-- LEFT: Logo (desktop) + hamburger (mobile) -->
+        <div class="flex items-center gap-2">
 
-        <!-- Desktop nav links (hidden on mobile) -->
+          <!-- Logo -->
+          <a href="/" aria-label="POLIS — home" id="header-logo-link">
+            <Image
+              src={polisStripped}
+              alt=""
+              width={88}
+              height={88}
+              class="h-9 md:h-11 w-auto"
+              loading="eager"
+            />
+          </a>
+
+          <!-- Hamburger button (mobile only) -->
+          <button
+            id="hamburger-btn"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Open menu"
+            class="md:hidden flex items-center justify-center w-11 h-11 text-white/80 hover:text-gold transition-colors"
+          >
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="2" y1="5" x2="20" y2="5"/>
+              <line x1="2" y1="11" x2="20" y2="11"/>
+              <line x1="2" y1="17" x2="20" y2="17"/>
+            </svg>
+          </button>
+
+        </div>
+
+        <!-- CENTER: Nav links (desktop only — auto column between two equal 1fr sides = true center) -->
         <ul class="hidden md:flex items-center gap-1 list-none m-0 p-0" role="list">
 
           <li>
@@ -111,7 +136,7 @@ const currentPath = Astro.url.pathname;
               href="/"
               aria-current={currentPath === '/' ? 'page' : undefined}
               class:list={[
-                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                'font-heading text-sm px-3 md:px-2 lg:px-3 py-2 rounded-sm transition-colors relative nav-link-underline whitespace-nowrap',
                 currentPath === '/' ? 'text-gold' : 'text-white/80 hover:text-white',
               ]}
             >Home</a>
@@ -122,7 +147,7 @@ const currentPath = Astro.url.pathname;
               href="/network"
               aria-current={currentPath.startsWith('/network') ? 'page' : undefined}
               class:list={[
-                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                'font-heading text-sm px-3 md:px-2 lg:px-3 py-2 rounded-sm transition-colors relative nav-link-underline whitespace-nowrap',
                 currentPath.startsWith('/network') ? 'text-gold' : 'text-white/80 hover:text-white',
               ]}
             >Network</a>
@@ -135,8 +160,9 @@ const currentPath = Astro.url.pathname;
               type="button"
               aria-haspopup="true"
               aria-expanded="false"
+              data-active={currentPath.startsWith('/members') ? 'true' : undefined}
               class:list={[
-                'font-heading text-sm px-3 py-2 rounded-sm transition-colors flex items-center gap-1 cursor-pointer',
+                'font-heading text-sm px-3 md:px-2 lg:px-3 py-2 rounded-sm transition-colors flex items-center gap-1 cursor-pointer relative nav-link-underline whitespace-nowrap',
                 currentPath.startsWith('/members') ? 'text-gold' : 'text-white/80 hover:text-white',
               ]}
             >
@@ -191,7 +217,7 @@ const currentPath = Astro.url.pathname;
               href="/programming"
               aria-current={currentPath.startsWith('/programming') ? 'page' : undefined}
               class:list={[
-                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                'font-heading text-sm px-3 md:px-2 lg:px-3 py-2 rounded-sm transition-colors relative nav-link-underline whitespace-nowrap',
                 currentPath.startsWith('/programming') ? 'text-gold' : 'text-white/80 hover:text-white',
               ]}
             >Programming</a>
@@ -202,7 +228,7 @@ const currentPath = Astro.url.pathname;
               href="/philanthropy"
               aria-current={currentPath.startsWith('/philanthropy') ? 'page' : undefined}
               class:list={[
-                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                'font-heading text-sm px-3 md:px-2 lg:px-3 py-2 rounded-sm transition-colors relative nav-link-underline whitespace-nowrap',
                 currentPath.startsWith('/philanthropy') ? 'text-gold' : 'text-white/80 hover:text-white',
               ]}
             >Philanthropy</a>
@@ -213,7 +239,7 @@ const currentPath = Astro.url.pathname;
               href="/join"
               aria-current={currentPath.startsWith('/join') ? 'page' : undefined}
               class:list={[
-                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                'font-heading text-sm px-3 md:px-2 lg:px-3 py-2 rounded-sm transition-colors relative nav-link-underline whitespace-nowrap',
                 currentPath.startsWith('/join') ? 'text-gold' : 'text-white/80 hover:text-white',
               ]}
             >Join</a>
@@ -224,25 +250,23 @@ const currentPath = Astro.url.pathname;
               href="/contact"
               aria-current={currentPath.startsWith('/contact') ? 'page' : undefined}
               class:list={[
-                'font-heading text-sm px-3 py-2 rounded-sm transition-colors',
+                'font-heading text-sm px-3 md:px-2 lg:px-3 py-2 rounded-sm transition-colors relative nav-link-underline whitespace-nowrap',
                 currentPath.startsWith('/contact') ? 'text-gold' : 'text-white/80 hover:text-white',
               ]}
             >Contact</a>
           </li>
 
-          <!-- Divider between nav links and social icons -->
-          <li aria-hidden="true" class="w-px h-4 bg-white/20 mx-1"></li>
-
         </ul>
 
-        <!-- Right section: social icons (all viewports) + hamburger (mobile only) -->
-        <div class="flex items-center">
+        <!-- RIGHT: Social icons — col-start-3 pins them to the third column so
+             they stay on the right even when the center nav is hidden on mobile. -->
+        <div class="col-start-3 flex items-center justify-end">
 
           <a
             href={site.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-center w-10 h-10 rounded-sm text-white/60 hover:text-gold transition-colors"
+            class="flex items-center justify-center w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-sm text-white/60 hover:text-gold transition-colors"
             aria-label="POLIS UF on Instagram (opens in new tab)"
           >
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -255,7 +279,7 @@ const currentPath = Astro.url.pathname;
             href={site.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-center w-10 h-10 rounded-sm text-white/60 hover:text-gold transition-colors"
+            class="flex items-center justify-center w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-sm text-white/60 hover:text-gold transition-colors"
             aria-label="POLIS UF on LinkedIn (opens in new tab)"
           >
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -266,7 +290,7 @@ const currentPath = Astro.url.pathname;
 
           <a
             href={`mailto:${site.email}`}
-            class="flex items-center justify-center w-10 h-10 rounded-sm text-white/60 hover:text-gold transition-colors"
+            class="flex md:hidden lg:flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 rounded-sm text-white/60 hover:text-gold transition-colors"
             aria-label={`Email POLIS UF at ${site.email}`}
           >
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -274,22 +298,6 @@ const currentPath = Astro.url.pathname;
               <path d="M2 7l10 7 10-7"/>
             </svg>
           </a>
-
-          <!-- Hamburger button (mobile only) -->
-          <button
-            id="hamburger-btn"
-            type="button"
-            aria-expanded="false"
-            aria-controls="mobile-menu"
-            aria-label="Open menu"
-            class="md:hidden flex items-center justify-center w-11 h-11 ml-1 text-white/80 hover:text-gold transition-colors"
-          >
-            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <line x1="2" y1="5" x2="20" y2="5"/>
-              <line x1="2" y1="11" x2="20" y2="11"/>
-              <line x1="2" y1="17" x2="20" y2="17"/>
-            </svg>
-          </button>
 
         </div>
 
@@ -520,6 +528,7 @@ const currentPath = Astro.url.pathname;
               href={site.applyUrl}
               target="_blank"
               rel="noopener noreferrer"
+              data-magnetic
               class="mt-3 inline-block bg-gold text-dark-blue font-heading font-semibold text-sm px-5 py-2 rounded-sm hover:brightness-110 transition w-fit"
             >
               Apply Now
@@ -539,39 +548,365 @@ const currentPath = Astro.url.pathname;
     </footer>
 
     <script>
-      // ----------------------------------------------------------------
-      // Scroll fade-up entrance animation
-      // ----------------------------------------------------------------
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
+      // ================================================================
+      // ONE-TIME SETUP — runs once per page lifetime (module script)
+      // ================================================================
+
+      // Abort controllers for scroll listeners that must be torn down on navigation
+      let _sealAbort: AbortController | null = null;
+      let _cueAbort:  AbortController | null = null;
+
+      // Close mobile overlay + restore header logo before View Transitions page swap
+      document.addEventListener('astro:before-preparation', () => {
+        // Restore logo + hamburger visibility on navigation away
+        const _logoEl = document.getElementById('header-logo-link') as HTMLElement | null;
+        if (_logoEl) { _logoEl.style.opacity = ''; _logoEl.classList.remove('home-page-logo-hidden'); }
+        const _hambEl = document.getElementById('hamburger-btn') as HTMLElement | null;
+        if (_hambEl) _hambEl.style.opacity = '';
+
+        const overlay = document.getElementById('mobile-menu');
+        if (overlay?.getAttribute('aria-hidden') === 'false') {
+          overlay.classList.add('translate-x-full');
+          overlay.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          const hamburger = document.getElementById('hamburger-btn');
+          if (hamburger) {
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.setAttribute('aria-label', 'Open menu');
+          }
+        }
+      });
+
+      // Header bg — single scroll listener referencing DOM dynamically
+      function updateHeaderBg() {
+        document.getElementById('site-header-wrapper')
+          ?.classList.toggle('header-scrolled', window.scrollY > 48);
+      }
+      window.addEventListener('scroll', updateHeaderBg, { passive: true });
+
+      // Close overlay on resize to desktop without moving focus
+      window.addEventListener('resize', () => {
+        const overlay = document.getElementById('mobile-menu');
+        if (window.innerWidth >= 768 && overlay?.getAttribute('aria-hidden') === 'false') {
+          overlay.classList.add('translate-x-full');
+          overlay.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          const hamburger = document.getElementById('hamburger-btn');
+          if (hamburger) {
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.setAttribute('aria-label', 'Open menu');
+          }
+        }
+      }, { passive: true });
+
+      // ================================================================
+      // SEAL FADE — hero seal fades out on scroll, header logo fades in
+      // ================================================================
+
+      function initSealMigration() {
+        _sealAbort?.abort();
+        _sealAbort = null;
+
+        const heroSeal   = document.getElementById('hero-seal') as HTMLElement | null;
+        const headerLogo = document.getElementById('header-logo-link') as HTMLElement | null;
+        const hamburger  = document.getElementById('hamburger-btn') as HTMLElement | null;
+        const hero       = document.querySelector<HTMLElement>('.hero-spotlight');
+
+        if (!heroSeal || !headerLogo || !hero) {
+          if (headerLogo) { headerLogo.style.opacity = ''; headerLogo.classList.remove('home-page-logo-hidden'); }
+          if (hamburger)    hamburger.style.opacity = '';
+          return;
+        }
+
+        // Start logo + hamburger invisible; fade in as hero seal fades out
+        headerLogo.style.opacity = '0';
+        if (hamburger) hamburger.style.opacity = '0';
+
+        const threshold = hero.offsetHeight * 0.5;
+        const noMotion  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        _sealAbort = new AbortController();
+
+        function update() {
+          const p = Math.min(1, Math.max(0, window.scrollY / threshold));
+          if (noMotion) {
+            heroSeal.style.opacity   = p < 0.5 ? '1' : '0';
+            headerLogo.style.opacity = p < 0.5 ? '0' : '1';
+            if (hamburger) hamburger.style.opacity = p < 0.5 ? '0' : '1';
+            return;
+          }
+          heroSeal.style.opacity   = String(1 - p);
+          headerLogo.style.opacity = String(p);
+          if (hamburger) hamburger.style.opacity = String(p);
+        }
+
+        update(); // correct state immediately on load (handles scrollY > 0)
+
+        let rafId: number;
+        window.addEventListener('scroll', () => {
+          cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(update);
+        }, { passive: true, signal: _sealAbort.signal });
+      }
+
+      // ================================================================
+      // PER-NAVIGATION INIT — fires on initial load + every SPA navigation
+      // ================================================================
+
+      document.addEventListener('astro:page-load', () => {
+        updateHeaderBg();
+
+        // ----------------------------------------------------------------
+        // Hero seal migration + scroll cue (home page only)
+        // ----------------------------------------------------------------
+        initSealMigration();
+
+        _cueAbort?.abort();
+        _cueAbort = null;
+        const scrollCue = document.getElementById('scroll-cue');
+        if (scrollCue) {
+          _cueAbort = new AbortController();
+          // Reset cue visibility (may have been hidden if user was previously scrolled)
+          scrollCue.classList.remove('is-hidden');
+          window.addEventListener('scroll', () => {
+            scrollCue.classList.toggle('is-hidden', window.scrollY > 60);
+          }, { passive: true, signal: _cueAbort.signal });
+        }
+
+        // ----------------------------------------------------------------
+        // Scroll fade-up entrance animation (re-observe on each navigation)
+        // ----------------------------------------------------------------
+        const fadeObs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                fadeObs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.06 }
+        );
+        document.querySelectorAll('.fade-up').forEach((el) => fadeObs.observe(el));
+
+        // ----------------------------------------------------------------
+        // Animated section dividers (Effect 11)
+        // ----------------------------------------------------------------
+        const divObs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                divObs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+        document.querySelectorAll('.section-divider').forEach((el) => divObs.observe(el));
+
+        // ----------------------------------------------------------------
+        // Founding Class banner dismiss (persistent element — attach once)
+        // ----------------------------------------------------------------
+        const dismissBtn = document.getElementById('dismiss-banner') as HTMLElement | null;
+        if (dismissBtn && !dismissBtn.dataset.listenerAttached) {
+          dismissBtn.dataset.listenerAttached = 'true';
+          dismissBtn.addEventListener('click', () => {
+            document.getElementById('founding-banner')?.remove();
+            localStorage.setItem('bannerDismissed', '1');
+          });
+        }
+
+        // ----------------------------------------------------------------
+        // Mobile menu
+        // Hamburger persists (transition:persist on header wrapper) — attach once.
+        // Close button and overlay are re-rendered on navigation — re-attach each time.
+        // ----------------------------------------------------------------
+        const hamburger = document.getElementById('hamburger-btn') as HTMLButtonElement | null;
+        const overlay   = document.getElementById('mobile-menu') as HTMLElement | null;
+        const closeBtn  = document.getElementById('close-menu-btn') as HTMLButtonElement | null;
+
+        if (hamburger && !hamburger.dataset.listenerAttached) {
+          hamburger.dataset.listenerAttached = 'true';
+          hamburger.addEventListener('click', openMenu);
+        }
+
+        closeBtn?.addEventListener('click', closeMenu);
+        overlay?.addEventListener('keydown', (e: KeyboardEvent) => {
+          if (e.key === 'Escape') { closeMenu(); return; }
+          if (e.key !== 'Tab') return;
+          const focusable = [...(overlay?.querySelectorAll<HTMLElement>('a[href], button, summary') ?? [])];
+          const first = focusable[0];
+          const last  = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault(); last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault(); first.focus();
+          }
+        });
+
+        // ----------------------------------------------------------------
+        // Desktop Members dropdown (persistent — attach once)
+        // ----------------------------------------------------------------
+        const membersBtn     = document.getElementById('members-btn')     as HTMLButtonElement | null;
+        const membersPanel   = document.getElementById('members-panel')   as HTMLElement | null;
+        const membersChevron = document.getElementById('members-chevron') as HTMLElement | null;
+
+        if (membersBtn && membersPanel && !membersBtn.dataset.listenerAttached) {
+          membersBtn.dataset.listenerAttached = 'true';
+          const menuItems = [...membersPanel.querySelectorAll<HTMLElement>('[role="menuitem"]')];
+          const isPanelOpen = () => membersPanel.classList.contains('is-open');
+
+          const openDropdown = () => {
+            membersPanel!.classList.add('is-open');
+            membersBtn!.setAttribute('aria-expanded', 'true');
+            if (membersChevron) membersChevron.style.transform = 'rotate(180deg)';
+          };
+          const closeDropdown = () => {
+            membersPanel!.classList.remove('is-open');
+            membersBtn!.setAttribute('aria-expanded', 'false');
+            if (membersChevron) membersChevron.style.transform = '';
+          };
+
+          membersBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isPanelOpen() ? closeDropdown() : openDropdown();
+          });
+          membersBtn.addEventListener('keydown', (e: KeyboardEvent) => {
+            if (e.key === 'ArrowDown') { e.preventDefault(); openDropdown(); menuItems[0]?.focus(); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); openDropdown(); menuItems[menuItems.length - 1]?.focus(); }
+            else if (e.key === 'Escape') { closeDropdown(); }
+          });
+          membersPanel.addEventListener('keydown', (e: KeyboardEvent) => {
+            const idx = menuItems.indexOf(document.activeElement as HTMLElement);
+            if (e.key === 'ArrowDown') { e.preventDefault(); menuItems[(idx + 1) % menuItems.length]?.focus(); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); menuItems[(idx - 1 + menuItems.length) % menuItems.length]?.focus(); }
+            else if (e.key === 'Escape') { closeDropdown(); membersBtn!.focus(); }
+            else if (e.key === 'Tab') { closeDropdown(); }
+          });
+          document.addEventListener('click', (e) => {
+            if (isPanelOpen() && !membersBtn!.contains(e.target as Node) && !membersPanel!.contains(e.target as Node)) {
+              closeDropdown();
             }
           });
-        },
-        { threshold: 0.06 }
-      );
-      document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+        }
 
-      // ----------------------------------------------------------------
-      // Mobile menu
-      // ----------------------------------------------------------------
-      const hamburger = document.getElementById('hamburger-btn') as HTMLButtonElement;
-      const closeBtn  = document.getElementById('close-menu-btn') as HTMLButtonElement;
-      const overlay   = document.getElementById('mobile-menu') as HTMLElement;
+        // ----------------------------------------------------------------
+        // Flip cards: one flipped per grid, aria-pressed + label updated.
+        // Both faces live inside the <button>; is-flipped class on the
+        // button drives the CSS 3D rotation via .flip-inner.
+        // ----------------------------------------------------------------
+        const HINT_MORE = 'activate to read more';
+        const HINT_BACK = 'activate to flip back';
+
+        function unflipCard(card: HTMLElement) {
+          card.classList.remove('is-flipped');
+          card.setAttribute('aria-pressed', 'false');
+          card.setAttribute('aria-label',
+            (card.getAttribute('aria-label') ?? '').replace(HINT_BACK, HINT_MORE));
+          const front = card.querySelector<HTMLElement>('.flip-front');
+          const back  = card.querySelector<HTMLElement>('.flip-back');
+          front?.removeAttribute('aria-hidden');
+          front?.removeAttribute('inert');
+          back?.setAttribute('aria-hidden', 'true');
+          back?.setAttribute('inert', '');
+        }
+
+        function flipCard(card: HTMLElement) {
+          card.classList.add('is-flipped');
+          card.setAttribute('aria-pressed', 'true');
+          card.setAttribute('aria-label',
+            (card.getAttribute('aria-label') ?? '').replace(HINT_MORE, HINT_BACK));
+          const front = card.querySelector<HTMLElement>('.flip-front');
+          const back  = card.querySelector<HTMLElement>('.flip-back');
+          front?.setAttribute('aria-hidden', 'true');
+          front?.setAttribute('inert', '');
+          back?.removeAttribute('aria-hidden');
+          back?.removeAttribute('inert');
+        }
+
+        document.querySelectorAll('[data-icon-grid]').forEach((grid) => {
+          const cards = [...grid.querySelectorAll<HTMLElement>('.flip-card')];
+          cards.forEach((card) => {
+            card.addEventListener('click', () => {
+              const isFlipped = card.classList.contains('is-flipped');
+              const currentFlipped = cards.find((c) => c.classList.contains('is-flipped'));
+              if (currentFlipped) unflipCard(currentFlipped);
+              if (!isFlipped) flipCard(card);
+            });
+          });
+        });
+
+        // Set each flip-card-wrapper's min-height to whichever face is taller.
+        // Both faces are position:absolute so without this the card collapses.
+        document.querySelectorAll<HTMLElement>('.flip-card-wrapper').forEach((wrapper) => {
+          const card  = wrapper.querySelector<HTMLElement>('.flip-card');
+          const front = wrapper.querySelector<HTMLElement>('.flip-front');
+          const back  = wrapper.querySelector<HTMLElement>('.flip-back');
+          if (!card || !front || !back) return;
+
+          // Temporarily bring back face into normal flow for measurement
+          back.style.position = 'static';
+          back.style.transform = 'none';
+          back.style.visibility = 'hidden';
+          const h = Math.max(front.scrollHeight, back.scrollHeight);
+          back.style.position = '';
+          back.style.transform = '';
+          back.style.visibility = '';
+
+          wrapper.style.minHeight = h + 'px';
+        });
+
+        // ----------------------------------------------------------------
+        // Magnetic hover on [data-magnetic] elements (Effect 1)
+        // CSS handles the spring-back transition via :not(:hover).
+        // JS only tracks cursor and applies the transform directly.
+        // ----------------------------------------------------------------
+        const noMotion    = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (!noMotion && finePointer) {
+          document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
+            if (el.dataset.magneticAttached) return;
+            el.dataset.magneticAttached = 'true';
+            let rafId: number;
+            el.addEventListener('mousemove', (e) => {
+              cancelAnimationFrame(rafId);
+              rafId = requestAnimationFrame(() => {
+                const r = el.getBoundingClientRect();
+                const dx = Math.max(-5, Math.min(5, ((e as MouseEvent).clientX - r.left - r.width / 2) * 0.3));
+                const dy = Math.max(-5, Math.min(5, ((e as MouseEvent).clientY - r.top - r.height / 2) * 0.3));
+                el.style.transform = `translate(${dx}px, ${dy}px)`;
+              });
+            });
+            el.addEventListener('mouseleave', () => {
+              cancelAnimationFrame(rafId);
+              el.style.transform = '';
+            });
+          });
+        }
+      });
+
+      // ================================================================
+      // MOBILE MENU HELPERS — defined at module level, referenced by
+      // both astro:page-load handlers and event listeners above.
+      // Function declarations are hoisted, so usage above is safe.
+      // ================================================================
 
       function openMenu() {
+        const overlay   = document.getElementById('mobile-menu') as HTMLElement | null;
+        const hamburger = document.getElementById('hamburger-btn') as HTMLButtonElement | null;
+        if (!overlay || !hamburger) return;
         overlay.classList.remove('translate-x-full');
         overlay.setAttribute('aria-hidden', 'false');
         hamburger.setAttribute('aria-expanded', 'true');
         hamburger.setAttribute('aria-label', 'Close menu');
         document.body.style.overflow = 'hidden';
-        closeBtn.focus();
+        (document.getElementById('close-menu-btn') as HTMLButtonElement | null)?.focus();
       }
 
       function closeMenu() {
+        const overlay   = document.getElementById('mobile-menu') as HTMLElement | null;
+        const hamburger = document.getElementById('hamburger-btn') as HTMLButtonElement | null;
+        if (!overlay || !hamburger) return;
         overlay.classList.add('translate-x-full');
         overlay.setAttribute('aria-hidden', 'true');
         hamburger.setAttribute('aria-expanded', 'false');
@@ -579,129 +914,6 @@ const currentPath = Astro.url.pathname;
         document.body.style.overflow = '';
         hamburger.focus();
       }
-
-      hamburger.addEventListener('click', openMenu);
-      closeBtn.addEventListener('click', closeMenu);
-
-      // Escape key + focus trap
-      overlay.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.key === 'Escape') { closeMenu(); return; }
-        if (e.key !== 'Tab') return;
-        const focusable = [...overlay.querySelectorAll<HTMLElement>(
-          'a[href], button, summary'
-        )];
-        const first = focusable[0];
-        const last  = focusable[focusable.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      });
-
-      // Close on viewport resize to desktop
-      window.addEventListener('resize', () => {
-        if (window.innerWidth >= 768 && overlay.getAttribute('aria-hidden') === 'false') {
-          closeMenu();
-        }
-      });
-
-      // ----------------------------------------------------------------
-      // Desktop Members dropdown — click primary, keyboard navigable
-      // ----------------------------------------------------------------
-      const membersBtn    = document.getElementById('members-btn')     as HTMLButtonElement | null;
-      const membersPanel  = document.getElementById('members-panel')   as HTMLElement | null;
-      const membersChevron = document.getElementById('members-chevron') as HTMLElement | null;
-
-      if (membersBtn && membersPanel) {
-        const menuItems = [...membersPanel.querySelectorAll<HTMLElement>('[role="menuitem"]')];
-
-        const isPanelOpen = () => membersPanel.classList.contains('is-open');
-
-        function openDropdown() {
-          membersPanel!.classList.add('is-open');
-          membersBtn!.setAttribute('aria-expanded', 'true');
-          if (membersChevron) membersChevron.style.transform = 'rotate(180deg)';
-        }
-
-        function closeDropdown() {
-          membersPanel!.classList.remove('is-open');
-          membersBtn!.setAttribute('aria-expanded', 'false');
-          if (membersChevron) membersChevron.style.transform = '';
-        }
-
-        // Click to toggle
-        membersBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          isPanelOpen() ? closeDropdown() : openDropdown();
-        });
-
-        // Keyboard on trigger button
-        membersBtn.addEventListener('keydown', (e: KeyboardEvent) => {
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            openDropdown();
-            menuItems[0]?.focus();
-          } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            openDropdown();
-            menuItems[menuItems.length - 1]?.focus();
-          } else if (e.key === 'Escape') {
-            closeDropdown();
-          }
-        });
-
-        // Arrow key navigation within dropdown
-        membersPanel.addEventListener('keydown', (e: KeyboardEvent) => {
-          const idx = menuItems.indexOf(document.activeElement as HTMLElement);
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            menuItems[(idx + 1) % menuItems.length]?.focus();
-          } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            menuItems[(idx - 1 + menuItems.length) % menuItems.length]?.focus();
-          } else if (e.key === 'Escape') {
-            closeDropdown();
-            membersBtn!.focus();
-          } else if (e.key === 'Tab') {
-            // Close and let focus move naturally
-            closeDropdown();
-          }
-        });
-
-        // Click outside to close
-        document.addEventListener('click', (e) => {
-          if (
-            isPanelOpen() &&
-            !membersBtn!.contains(e.target as Node) &&
-            !membersPanel!.contains(e.target as Node)
-          ) {
-            closeDropdown();
-          }
-        });
-      }
-
-      // ----------------------------------------------------------------
-      // Transparent header — become solid after ~0.5 inch of scroll
-      // ----------------------------------------------------------------
-      const siteHeaderWrapper = document.getElementById('site-header-wrapper');
-      function updateHeader() {
-        siteHeaderWrapper?.classList.toggle('header-scrolled', window.scrollY > 48);
-      }
-      window.addEventListener('scroll', updateHeader, { passive: true });
-      updateHeader();
-
-      // ----------------------------------------------------------------
-      // Founding Class banner dismiss
-      // ----------------------------------------------------------------
-      const banner = document.getElementById('founding-banner');
-      const dismissBtn = document.getElementById('dismiss-banner');
-      dismissBtn?.addEventListener('click', () => {
-        banner?.remove();
-        localStorage.setItem('bannerDismissed', '1');
-      });
     </script>
 
   </body>

@@ -24,6 +24,8 @@
   /* --- Typography --- */
   --font-heading: 'EB Garamond Variable', Georgia, serif;
   --font-body:    'EB Garamond Variable', Georgia, serif;
+  /* Hero wordmark only — change this one value to revert to EB Garamond */
+  --font-hero:    'Cardo', 'EB Garamond Variable', Georgia, serif;
 }
 
 /* Base defaults */
@@ -43,7 +45,10 @@ html {
    Hidden by default. The early <head> script adds .banner-show to
    <html> when the banner has not been dismissed, revealing it.
    ---------------------------------------------------------------- */
-#founding-banner { display: none; }
+#founding-banner {
+  display: none;
+  transition: background-color 0.4s ease-out, color 0.4s ease-out;
+}
 html.banner-show #founding-banner { display: flex; }
 
 /* ----------------------------------------------------------------
@@ -116,6 +121,15 @@ blockquote.pull-quote p { margin: 0; }
 #site-header-wrapper.header-scrolled {
   background-color: var(--color-dark-blue);
 }
+/* Banner becomes Gold with Dark Blue text after scroll (5.3:1 contrast — passes WCAG AA).
+   Specificity (2,1,0) beats Tailwind's text-white (0,1,0) so no HTML change needed. */
+#site-header-wrapper.header-scrolled #founding-banner {
+  background-color: var(--color-gold);
+  color: var(--color-dark-blue);
+}
+#site-header-wrapper.header-scrolled #dismiss-banner:hover {
+  background-color: rgba(21, 46, 70, 0.1);
+}
 
 /* ----------------------------------------------------------------
    Desktop Members dropdown panel — visibility controlled by JS.
@@ -156,4 +170,277 @@ details[open] .details-chevron {
     transform: none;
     transition: none;
   }
+}
+
+/* ----------------------------------------------------------------
+   Effect 1: Magnetic CTAs — transform transitions only on leave,
+   not during cursor tracking, avoiding lag without JS hacks.
+   ---------------------------------------------------------------- */
+[data-magnetic]:not(:hover) {
+  transition: transform 200ms ease-out;
+}
+
+/* ----------------------------------------------------------------
+   Effect 3: Animated gold underline on desktop nav links.
+   Class applied only to desktop <a> and Members <button>.
+   ---------------------------------------------------------------- */
+.nav-link-underline {
+  position: relative;
+}
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.375rem;
+  height: 2px;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease-out;
+}
+.nav-link-underline:hover::after,
+.nav-link-underline:focus-visible::after,
+.nav-link-underline[aria-current="page"]::after,
+.nav-link-underline[data-active="true"]::after,
+.nav-link-underline[aria-expanded="true"]::after {
+  transform: scaleX(1);
+}
+
+/* ----------------------------------------------------------------
+   Effect 4: Hero cursor-following spotlight.
+   Pseudo-element only rendered on fine-pointer devices.
+   ---------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .hero-spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(
+      350px circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+      rgba(206, 149, 55, 0.10) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+}
+
+/* ----------------------------------------------------------------
+   Effect 6: Letterpress text-shadow on the hero h1.
+   Uses --font-hero (Cardo) instead of --font-heading (EB Garamond).
+   To revert font: change --font-hero in @theme to match --font-heading.
+   ---------------------------------------------------------------- */
+.hero-wordmark {
+  font-family: var(--font-hero);
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.5),
+    0 -1px 0 rgba(206, 149, 55, 0.28);
+}
+/* Letter-spacing on the POLIS span inside .hero-wordmark */
+.hero-wordmark span {
+  letter-spacing: 0.15em;
+}
+@media (max-width: 640px) {
+  .hero-wordmark span {
+    letter-spacing: 0.10em;
+  }
+}
+
+/* ----------------------------------------------------------------
+   Effect 8: SVG self-draw icon strokes.
+   Only <path> elements animate; other shapes appear instantly.
+   ---------------------------------------------------------------- */
+[data-draw-icon] path {
+  transition: stroke-dashoffset 1500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-draw-icon] path {
+    transition: none;
+  }
+}
+
+/* ----------------------------------------------------------------
+   Flip cards — Mission section and Philanthropy focus areas.
+   Three-layer architecture keeps 3D and hover cleanly separated:
+
+   .flip-card-wrapper  — grid item; owns hover lift + shadow; plain
+                         div so its transform never flattens 3D children
+   .flip-card (button) — perspective context; transparent background so
+                         the page shows through at the 90° midpoint;
+                         NO transform / NO transform-style on this layer
+   .flip-inner (div)   — the thing that actually rotates; preserve-3d
+   .flip-front/.back   — absolute faces; backface-visibility: hidden
+   ---------------------------------------------------------------- */
+.flip-card-wrapper {
+  background: var(--color-surface);
+  border-radius: 2px;
+  transition: transform 250ms ease-out, box-shadow 250ms ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .flip-card-wrapper:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  }
+}
+
+.flip-card {
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  color: var(--color-white);
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  perspective: 700px;
+}
+.flip-card:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.flip-front,
+.flip-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: var(--color-dark-blue);
+}
+.flip-back {
+  transform: rotateY(180deg);
+  border-top: 3px solid var(--color-gold);
+}
+.flip-card.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-indicator {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  color: var(--color-gold);
+}
+
+/* Reduced motion: instant opacity crossfade, no 3D rotation */
+@media (prefers-reduced-motion: reduce) {
+  .flip-card-wrapper { transition: none; }
+  .flip-inner {
+    transition: none;
+    transform: none !important;
+  }
+  .flip-front,
+  .flip-back {
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+  }
+  .flip-back {
+    transform: none !important;
+    opacity: 0;
+  }
+  .flip-card.is-flipped .flip-front { opacity: 0; pointer-events: none; }
+  .flip-card.is-flipped .flip-back  { opacity: 1; }
+}
+
+
+/* ----------------------------------------------------------------
+   Effect 11: Animated section dividers.
+   transform-origin: center expands from the middle outward.
+   Reduced motion: render static (no animation).
+   ---------------------------------------------------------------- */
+.section-divider {
+  width: 80px;
+  height: 2px;
+  background: var(--color-gold);
+  margin: 0 auto 2.5rem;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 400ms ease-out;
+}
+.section-divider.is-visible {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-divider {
+    transform: scaleX(1);
+    transition: none;
+  }
+}
+
+/* Header logo hidden state (fallback for no-JS / nav-away safety) */
+.home-page-logo-hidden {
+  opacity: 0;
+}
+
+/* ----------------------------------------------------------------
+   Hero Apply Now CTA — outlined gold, fills on hover
+   ---------------------------------------------------------------- */
+.apply-hero-btn {
+  background: transparent;
+  border: 2px solid var(--color-gold);
+  color: var(--color-gold);
+  transition: background-color 200ms ease-out, color 200ms ease-out;
+}
+.apply-hero-btn:hover,
+.apply-hero-btn:focus-visible {
+  background: var(--color-gold);
+  color: var(--color-dark-blue);
+}
+.apply-hero-btn .btn-arrow {
+  display: inline-block;
+  margin-left: 0.4em;
+  transition: transform 200ms ease-out;
+}
+.apply-hero-btn:hover .btn-arrow,
+.apply-hero-btn:focus-visible .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ----------------------------------------------------------------
+   Scroll cue chevron — animated bounce at bottom of hero
+   ---------------------------------------------------------------- */
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0);   opacity: 0.6; }
+  50%       { transform: translateY(7px); opacity: 1;   }
+}
+#scroll-cue {
+  animation: bounce-down 1.8s ease-in-out infinite;
+  transition: opacity 300ms ease-out;
+}
+#scroll-cue.is-hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  #scroll-cue { animation: none; }
+}
+
+/* ----------------------------------------------------------------
+   Hero seal easter egg — MLK quote overlay
+   Hidden by default; JS adds .is-visible on triple-click.
+   ---------------------------------------------------------------- */
+#quote-overlay {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+#quote-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  #quote-overlay { transition: none; }
 }
