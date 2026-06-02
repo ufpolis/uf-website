@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://polisuf.org/sitemap-index.xml
+Sitemap: https://ufpolis.com/sitemap-index.xml
