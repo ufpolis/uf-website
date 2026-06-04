@@ -3,10 +3,11 @@
     "tagline": "The University of Florida's foremost pre-professional government society for students interested in government, policy, and public service."
   },
   "whoWeAre": {
-    "body": "Pi Lambda Sigma, also known as POLIS, was founded in 2016 by Cornell alumnus Sam Barnett as a pre-professional government society for students interested in public service, government, policy, and legal studies. Since its founding, POLIS has grown into a network of chapters at universities including the University of Pennsylvania, Columbia University, Dartmouth College, and now the University of Florida.\n\nPOLIS brings together students from all majors who are passionate about public service and the institutions that shape society. Our mission is to create a strong support system for students pursuing careers in public service, politics, legal studies, government, policy, advocacy, and civic leadership while providing professional development opportunities, mentorship, and hands-on experience.\n\nOur fellows have diverse interests ranging from legal studies and foreign policy to economics, education, public health, immigrant rights, climate justice, and community advocacy. Through this diversity of interests and experiences, POLIS aims to make public service more accessible, inclusive, and representative while building a network of future leaders committed to ethical public service leadership."
+    "body": "Pi Lambda Sigma, also known as POLIS, was founded in 2016 by Cornell alumnus Sam Barnett as a pre-professional government society for students interested in public service, government, policy, and legal studies. Since its founding, POLIS has grown into a network of chapters at universities including the University of Pennsylvania, Columbia University, Dartmouth College, and now the University of Florida.\n\nOur fellows have diverse interests ranging from legal studies and foreign policy to economics, education, public health, immigrant rights, climate justice, and community advocacy. Through this diversity of interests and experiences, POLIS aims to make public service more accessible, inclusive, and representative while building a network of future leaders committed to ethical public service leadership.",
+    "pullQuote": "POLIS brings together students from all majors who are passionate about public service and the institutions that shape society."
   },
   "whyPolis": {
-    "pullQuote": "POLIS is more than just a professional society. It is a community for students who want to lead, serve, and shape the future of public leadership.",
+    "pullQuote": "POLIS is more than a professional society. It is a community for students who want to lead, serve, and shape the future of public leadership.",
     "body": "Through professional development, mentorship, advocacy, service, and networking opportunities, POLIS prepares students to pursue careers in public service, politics, legal studies, government, policy, and civic leadership.\n\nAs a Founding Fellow, you will help build its culture, traditions, programming, and long-term impact at the University of Florida."
   },
   "mission": {
@@ -15,15 +16,15 @@
     "goals": [
       {
         "title": "Public Service & Ethical Leadership",
-        "body": "We aim to cultivate future leaders who are committed to serving their communities with integrity, responsibility, and purpose. Through speaker events, policy discussions, advocacy projects, and hands-on public service initiatives, POLIS encourages students to think critically about how leadership can be used to create stronger institutions and better policies."
+        "body": "We aim to <strong>cultivate future leaders</strong> who are committed to serving their communities with integrity, responsibility, and purpose.\n\nThrough speaker events, policy discussions, advocacy projects, and hands-on public service initiatives, POLIS encourages students to think critically about how leadership can be used to create <strong>stronger institutions and better policies</strong>."
       },
       {
         "title": "Inclusive Governance & Accessibility",
-        "body": "POLIS is committed to making careers in government, law, policy, and public service more accessible to students from all backgrounds. We recognize that many professional spaces have systemic barriers, including unpaid or low-paid internships, limited mentorship, lack of access to professional resources, and unequal exposure to networking opportunities. Our goal is to help reduce those barriers by connecting students with guidance, resources, and support."
+        "body": "POLIS is committed to making careers in government, law, policy, and public service <strong>more accessible to students from all backgrounds</strong>.\n\nWe recognize that many professional spaces have <strong>systemic barriers</strong>, including unpaid or low-paid internships, limited mentorship, lack of access to professional resources, and unequal exposure to networking opportunities.\n\nOur goal is to <strong>help reduce those barriers</strong> by connecting students with guidance, resources, and support."
       },
       {
         "title": "Professional Development with Public Purpose",
-        "body": "Through workshops, alumni and guest speaker panels, recruitment resources, networking opportunities, and mentorship, POLIS helps students build practical career skills while staying grounded in a larger commitment to public purpose. Our programming focuses on resume building, interview preparation, elevator pitches, networking, internship searches, and professional confidence."
+        "body": "Through workshops, alumni and guest speaker panels, recruitment resources, networking opportunities, and mentorship, POLIS helps students build <strong>practical career skills</strong> while staying grounded in a larger commitment to public purpose.\n\nOur programming focuses on <strong>resume building, interview preparation</strong>, elevator pitches, networking, internship searches, and professional confidence."
       }
     ],
     "closingQuote": "As a founding chapter, POLIS seeks to build more than a professional organization. We are building a community of students who care about service, representation, and the future of public leadership."

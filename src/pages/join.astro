@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import polisPlaceholder from '../assets/polis_placeholder.jpg';
 import site from '../data/site.json';
-import { toHtml } from '../utils/markdown';
+import { toHtml, toHtmlLede } from '../utils/markdown';
 
 // To edit recruitment copy, FAQs, or timeline, edit src/data/join.json — not this file.
 import joinData from '../data/join.json';
@@ -57,6 +57,7 @@ import joinData from '../data/join.json';
     <section id="process" data-section class="bg-white py-20 md:py-28 px-6">
       <div class="max-w-6xl mx-auto">
 
+        <div class="section-divider" aria-hidden="true"></div>
         <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center mb-14 fade-up">
           Our Recruitment Process
         </h2>
@@ -64,7 +65,7 @@ import joinData from '../data/join.json';
         <div class="flex flex-col md:flex-row items-start gap-12">
 
           <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6 fade-up">
-            <div class="lede" set:html={toHtml(joinData.process.body)} />
+            <div set:html={toHtmlLede(joinData.process.body)} />
             <blockquote class="pull-quote">
               <p>{joinData.processPullQuote}</p>
             </blockquote>
@@ -90,6 +91,7 @@ import joinData from '../data/join.json';
     <section id="timeline" data-section class="bg-gray/20 py-20 md:py-28 px-6">
       <div class="max-w-5xl mx-auto">
 
+        <div class="section-divider" aria-hidden="true"></div>
         <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center mb-4 fade-up">
           Recruitment Timeline
         </h2>
@@ -122,20 +124,21 @@ import joinData from '../data/join.json';
     <section id="questions" data-section class="bg-white py-20 md:py-28 px-6">
       <div class="max-w-4xl mx-auto">
 
+        <div class="section-divider" aria-hidden="true"></div>
         <h2 class="font-heading text-dark-blue text-3xl md:text-4xl text-center mb-14 fade-up">
           Questions About Recruitment?
         </h2>
 
         <div class="fade-up flex flex-col md:flex-row items-center gap-10 border border-gray rounded-sm p-8 shadow-sm">
 
-          <!-- Circular headshot placeholder -->
+          <!-- Circular headshot -->
           <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-gold shrink-0">
-            <Image
-              src={polisPlaceholder}
+            <img
+              src="/uploads/headshots/abagail-price.jpg"
               alt="Abagail Price — VP of Recruitment"
-              width={160}
-              height={160}
-              class="w-full h-full object-cover opacity-60"
+              width="160"
+              height="160"
+              class="w-full h-full object-cover"
               loading="lazy"
             />
           </div>
@@ -227,6 +230,7 @@ import joinData from '../data/join.json';
     <!-- Bottom CTA -->
     <section class="bg-white py-20 px-6">
       <div class="max-w-2xl mx-auto text-center fade-up">
+        <div class="section-divider" aria-hidden="true"></div>
         <h2 class="font-heading text-dark-blue text-3xl md:text-4xl mb-6">
           Ready to Apply?
         </h2>

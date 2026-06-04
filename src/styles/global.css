@@ -74,6 +74,15 @@ html.banner-show #founding-banner { display: flex; }
   margin: 0.04em 0.1em 0 0;
 }
 
+/* Gold fleuron ornament beside the drop cap.
+   Positioning is inlined in the HTML (see toHtmlLede) to survive
+   Astro View Transitions CSS-swap gaps on back-navigation. */
+.lede-ornament {
+  color: var(--color-gold);
+  font-size: 1.2em;
+  line-height: 1;
+}
+
 /* ----------------------------------------------------------------
    Pull quote — editorial blockquote with gold left border.
    ---------------------------------------------------------------- */
@@ -325,6 +334,10 @@ details[open] .details-chevron {
   transform: rotateY(180deg);
   border-top: 3px solid var(--color-gold);
 }
+/* Breathing room between paragraphs on multi-paragraph flip backs */
+.flip-back p + p {
+  margin-top: 0.625rem;
+}
 .flip-card.is-flipped .flip-inner {
   transform: rotateY(180deg);
 }
@@ -443,4 +456,36 @@ details[open] .details-chevron {
 }
 @media (prefers-reduced-motion: reduce) {
   #quote-overlay { transition: none; }
+}
+
+/* ----------------------------------------------------------------
+   Marquee — "Where We Work" logo strip on Home page.
+   Track is duplicated in HTML so translateX(-50%) loops seamlessly.
+   ---------------------------------------------------------------- */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-scroll 50s linear infinite;
+}
+.marquee-container:hover .marquee-track,
+.marquee-container:focus-within .marquee-track,
+.marquee-track.is-paused {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100% !important;
+    justify-content: center;
+  }
+  .marquee-list + .marquee-list { display: none; }
+  #marquee-toggle               { display: none; }
+}
+.marquee-logo:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
 }

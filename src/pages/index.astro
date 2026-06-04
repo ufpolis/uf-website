@@ -8,7 +8,22 @@ import senatePainting from '../assets/senate_painting.jpg';
 import polisMain from '../assets/polis_stripped.png';
 import site from '../data/site.json';
 import home from '../data/home.json';
-import { toHtml } from '../utils/markdown';
+import { toHtml, toHtmlLede, toHtmlLedeFirstPara, toHtmlAfterFirstPara } from '../utils/markdown';
+import networkData from '../data/internships.json';
+
+const HOUSE_LOGO = '/network-logos/www_house.svg';
+const allLogos: { src: string; alt: string; title: string }[] = [
+  ...networkData.houseEntries.map((e: any) => ({
+    src:   HOUSE_LOGO,
+    alt:   'U.S. House of Representatives',
+    title: e.title,
+  })),
+  ...(networkData.entries as any[]).map((e) => ({
+    src:   e.logo,
+    alt:   e.alt || e.title,
+    title: e.title,
+  })),
+];
 
 // Icons for the three mission goal flip cards (indexed to match home.mission.goals order)
 const goalIcons = [
@@ -121,8 +136,13 @@ const goalIcons = [
         <div class="flex flex-col md:flex-row items-start gap-12">
 
           <!-- Text -->
-          <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6"
-            set:html={toHtml(home.whoWeAre.body)} />
+          <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6">
+            <div set:html={toHtmlLedeFirstPara(home.whoWeAre.body)} />
+            <blockquote class="pull-quote">
+              <p>{home.whoWeAre.pullQuote}</p>
+            </blockquote>
+            <div set:html={toHtmlAfterFirstPara(home.whoWeAre.body)} />
+          </div>
 
           <!-- Photo + CTA -->
           <div class="w-full md:w-80 lg:w-96 shrink-0 flex flex-col gap-4">
@@ -164,10 +184,11 @@ const goalIcons = [
 
           <!-- Text -->
           <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6">
-            <div set:html={toHtml(home.whyPolis.body)} />
+            <div set:html={toHtmlLedeFirstPara(home.whyPolis.body)} />
             <blockquote class="pull-quote">
               <p>{home.whyPolis.pullQuote}</p>
             </blockquote>
+            <div set:html={toHtmlAfterFirstPara(home.whyPolis.body)} />
           </div>
 
           <!-- Photo + CTA -->
@@ -202,36 +223,51 @@ const goalIcons = [
          MISSION
          ============================================================ -->
     <section id="mission" data-section class="bg-white py-20 md:py-28 px-6">
-      <div class="max-w-4xl mx-auto">
+      <div class="max-w-6xl mx-auto mb-16">
 
         <div class="section-divider" aria-hidden="true"></div>
         <h2 class="font-heading text-dark-blue text-4xl md:text-5xl mb-10 text-center">
           Mission
         </h2>
 
-        <!-- Photo, centered above text -->
-        <div class="flex justify-center mb-12">
-          <Image
-            src={senatePainting}
-            alt="Senate chamber painting"
-            width={800}
-            height={533}
-            class="w-full max-w-lg h-auto rounded-sm object-cover"
-            loading="lazy"
-          />
+        <div class="flex flex-col md:flex-row items-start gap-12">
+
+          <!-- Text -->
+          <div class="flex-1 font-heading text-dark-blue text-lg leading-relaxed space-y-6">
+            <div set:html={toHtmlLedeFirstPara(home.mission.body)} />
+            <blockquote class="pull-quote">
+              <p>{home.mission.pullQuote}</p>
+            </blockquote>
+            <div set:html={toHtmlAfterFirstPara(home.mission.body)} />
+          </div>
+
+          <!-- Photo + Philanthropy CTA -->
+          <div class="w-full md:w-80 lg:w-96 shrink-0 flex flex-col gap-4">
+            <Image
+              src={senatePainting}
+              alt="Senate chamber painting"
+              width={800}
+              height={533}
+              class="w-full h-auto rounded-sm object-cover"
+              loading="lazy"
+            />
+            <a
+              href="/philanthropy"
+              data-magnetic
+              class="self-center min-h-[44px] inline-flex items-center justify-center border border-dark-blue text-dark-blue font-heading font-semibold text-base px-7 py-3 rounded-sm hover:bg-dark-blue/10 focus:outline-none focus:ring-2 focus:ring-dark-blue focus:ring-offset-2 transition"
+            >
+              Explore Our Philanthropy
+            </a>
+          </div>
+
         </div>
 
-        <div class="prose-measure font-heading text-dark-blue text-lg leading-relaxed space-y-6 mb-6">
-          <div set:html={toHtml(home.mission.body)} />
-          <blockquote class="pull-quote">
-            <p>{home.mission.pullQuote}</p>
-          </blockquote>
-        </div>
+      </div>
 
+      <div class="max-w-4xl mx-auto">
         <h3 class="font-heading text-dark-blue text-2xl md:text-3xl mb-8 text-center">
-          Our mission is centered on three key goals
+          Our Mission Is Centered on Three Key Goals
         </h3>
-
       </div>
 
       <!-- Three goal cards — wider container, always-visible static grid -->
@@ -260,10 +296,13 @@ const goalIcons = [
                 </div>
                 <div class="flip-back" aria-hidden="true" inert>
                   <div class="font-heading text-white/85 text-base leading-relaxed" set:html={toHtml(goal.body)} />
-                  <div class="flip-indicator" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
-                    </svg>
+                  <div class="mt-auto flex items-center justify-between">
+                    <div class="text-gold" aria-hidden="true" set:html={goalIcons[i].replace('width="32" height="32"', 'width="20" height="20"')} />
+                    <div class="flip-indicator" style="margin-top:0" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -274,7 +313,101 @@ const goalIcons = [
         </div>
       </div>
 
-      <div class="flex justify-center py-12">
+    </section>
+
+
+    <!-- ============================================================
+         WHERE WE WORK — logo marquee + founding pull quote
+         ============================================================ -->
+    <section class="bg-light-blue py-20 md:py-28 px-6">
+
+      <div class="max-w-6xl mx-auto">
+        <div class="section-divider" aria-hidden="true"></div>
+        <h2 class="font-heading text-dark-blue text-4xl md:text-5xl mb-3 text-center">
+          Where We Work
+        </h2>
+        <p class="font-heading text-dark-blue/60 text-base text-center mb-12">
+          Click to see our network
+        </p>
+      </div>
+
+      <!-- Marquee -->
+      <div
+        class="marquee-container relative overflow-hidden"
+        role="region"
+        aria-label="Where we work, scrolling list of internship placements"
+      >
+        <!-- Pause / Play toggle — hidden under prefers-reduced-motion via CSS -->
+        <button
+          id="marquee-toggle"
+          type="button"
+          aria-label="Pause network logos"
+          class="absolute top-2 right-4 z-10 min-w-[36px] min-h-[36px] flex items-center justify-center bg-white/80 border border-dark-blue/20 rounded-sm text-dark-blue hover:bg-white hover:border-gold transition-colors focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-1"
+        >
+          <svg id="marquee-pause-icon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="5"  y="3" width="4" height="18" rx="1"/>
+            <rect x="15" y="3" width="4" height="18" rx="1"/>
+          </svg>
+          <svg id="marquee-play-icon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="hidden">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+        </button>
+
+        <!-- Scrolling track — two identical lists for seamless loop -->
+        <div class="marquee-track flex items-center gap-16 w-max py-6">
+
+          <!-- First copy (keyboard-accessible) -->
+          <div class="marquee-list flex items-center gap-16">
+            {allLogos.map((logo) => (
+              <a
+                href="/network"
+                class="marquee-logo shrink-0"
+                aria-label={`${logo.title} — view our network`}
+              >
+                <div class="bg-white rounded-sm px-4 py-3 flex items-center justify-center h-[90px] min-w-[110px]">
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    class="max-h-[64px] w-auto max-w-[130px] object-contain"
+                    loading="lazy"
+                  />
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <!-- Duplicate copy — aria-hidden + tabindex=-1 to avoid double focus -->
+          <div class="marquee-list flex items-center gap-16" aria-hidden="true">
+            {allLogos.map((logo) => (
+              <a
+                href="/network"
+                class="marquee-logo shrink-0"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <div class="bg-white rounded-sm px-4 py-3 flex items-center justify-center h-[90px] min-w-[110px]">
+                  <img
+                    src={logo.src}
+                    alt=""
+                    class="max-h-[64px] w-auto max-w-[130px] object-contain"
+                    loading="lazy"
+                  />
+                </div>
+              </a>
+            ))}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Pull quote (moved from Mission section) -->
+      <div class="max-w-4xl mx-auto mt-12">
+        <blockquote class="pull-quote">
+          <p>{home.mission.closingQuote}</p>
+        </blockquote>
+      </div>
+
+      <div class="flex justify-center mt-10">
         <a
           href={site.applyUrl}
           target="_blank"
@@ -287,13 +420,8 @@ const goalIcons = [
         </a>
       </div>
 
-      <div class="max-w-4xl mx-auto">
-        <blockquote class="pull-quote">
-          <p>{home.mission.closingQuote}</p>
-        </blockquote>
-      </div>
-
     </section>
+
 
     <!-- MLK quote easter egg overlay — triggered by triple-clicking the hero seal -->
     <div
@@ -395,6 +523,23 @@ const goalIcons = [
 
   document.addEventListener('astro:page-load', () => {
     initSealEasterEgg();
+
+    // ----------------------------------------------------------------
+    // Marquee pause/play toggle
+    // ----------------------------------------------------------------
+    const marqueeToggle = document.getElementById('marquee-toggle')    as HTMLButtonElement | null;
+    const marqueeTrack  = document.querySelector<HTMLElement>('.marquee-track');
+    const pauseIcon     = document.getElementById('marquee-pause-icon') as SVGElement | null;
+    const playIcon      = document.getElementById('marquee-play-icon')  as SVGElement | null;
+
+    if (marqueeToggle && marqueeTrack && pauseIcon && playIcon) {
+      marqueeToggle.addEventListener('click', () => {
+        const isPaused = marqueeTrack.classList.toggle('is-paused');
+        marqueeToggle.setAttribute('aria-label', isPaused ? 'Play network logos' : 'Pause network logos');
+        pauseIcon.classList.toggle('hidden', isPaused);
+        playIcon.classList.toggle('hidden', !isPaused);
+      });
+    }
 
     // Guard: only run on pages that have a section sub-nav
     const sections = [...document.querySelectorAll('[data-section]')];
