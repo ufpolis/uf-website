@@ -30,9 +30,21 @@
     }
   ],
   "timeline": [
-    { "label": "Information Session", "date": "[Date TBD]" },
-    { "label": "Application Opens", "date": "[Date TBD]" },
-    { "label": "Interview Rounds", "date": "[Date TBD]" },
-    { "label": "Decisions Released", "date": "[Date TBD]" }
+    {
+      "label": "Information Sessions",
+      "date": "September 16th, 7:30 pm, September 22nd, 3:00 pm"
+    },
+    {
+      "label": "Application Opens",
+      "date": "[Date TBD]"
+    },
+    {
+      "label": "Interview Rounds",
+      "date": "[Date TBD]"
+    },
+    {
+      "label": "Decisions Released",
+      "date": "[Date TBD]"
+    }
   ]
 }
